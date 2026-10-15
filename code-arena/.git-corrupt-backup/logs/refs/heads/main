@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 98676471cd9ac83023407f38e1270a5468f5f686 Ibrahim Kedir <ibrahimkediramdela2211@gmail.com> 1788253477 +0300	reset: moving to origin/main
+98676471cd9ac83023407f38e1270a5468f5f686 4623cafd3251562f4d3101c1b20671fa75444759 Ibrahim Kedir <ibrahimkediramdela2211@gmail.com> 1788253749 +0300	commit: deployed stage
+4623cafd3251562f4d3101c1b20671fa75444759 4623cafd3251562f4d3101c1b20671fa75444759 Ibrahim Kedir <ibrahimkediramdela2211@gmail.com> 1788253797 +0300	Branch: renamed refs/heads/master to refs/heads/main
+4623cafd3251562f4d3101c1b20671fa75444759 0457a622a040ca96a60a969baf524d3f30c03a0c Ibrahim Kedir <ibrahimkediramdela2211@gmail.com> 1788266100 +0300	commit: fix: configure SPA routing for Vercel
+0457a622a040ca96a60a969baf524d3f30c03a0c 040facd85d135525d13c52d84d5c7c306ca46b8a Ibrahim Kedir <ibrahimkediramdela2211@gmail.com> 1788382847 +0300	commit: -y

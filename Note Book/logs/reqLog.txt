@@ -1,0 +1,9 @@
+20251205	00:09:38	2863496d-52f3-499f-b9db-b5feca217d57	GET	undefined	/notes/
+20251205	00:09:49	f7c25c68-bc7c-4036-8511-684ea8bb4bed	GET	undefined	/notes/
+20251205	00:09:57	c102ce74-93c3-449c-972d-77fc36c9ca9f	POST	undefined	/notes/
+20251205	00:09:58	e3d82b4c-b79c-49c8-85b1-5bac5cfe9cb4	POST	undefined	/notes/
+20251205	00:09:59	9f98eb54-164d-4154-a0f4-613a3ef654a7	POST	undefined	/notes/
+20251207	23:52:06	3feb862d-cc3b-49ec-91c9-b2aca3004317	OPTIONS	http://127.0.0.1:5500	/notes
+20251207	23:52:11	24ca6bcc-01ff-4bdb-baff-7377a819ff87	OPTIONS	http://127.0.0.1:5500	/notes
+20251207	23:52:23	0769398a-8af5-4b16-afd3-690249927d05	GET	http://127.0.0.1:5500	/notes
+20251207	23:52:27	0b129d0b-6b59-4b84-8ea2-808597fd8ca9	GET	http://127.0.0.1:5500	/notes

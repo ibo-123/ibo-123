@@ -1,0 +1,14 @@
+const NOTIFICATION_TYPES = [
+  'JOB_ASSIGNED',
+  'SUBMISSION_RECEIVED',
+  'REVISION_REQUESTED',
+  'SUBMISSION_APPROVED',
+  'DEADLINE_REMINDER',
+];
+
+const RELATED_ENTITY_TYPES = ['Job', 'Submission', 'Contributor', 'User'];
+
+module.exports = {
+  NOTIFICATION_TYPES,
+  RELATED_ENTITY_TYPES,
+};

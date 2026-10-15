@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: 00b2eff1-3227-484e-a2b8-4805290ea115
+
+localResources:
+  collections:
+    - ../TemariHub-diagnostic.postman_collection.json

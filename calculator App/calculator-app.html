@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Calculator App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+                body {
+                        font-family: 'Segoe UI', Arial, sans-serif;
+                        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+                        min-height: 100vh;
+                        margin: 0;
+                        position: relative;
+                        overflow-x: hidden;
+                }
+                body::before {
+                        content: "";
+                        position: fixed;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+                        opacity: 0.25;
+                        z-index: -1;
+                }
+                .navbar {
+                        width: 100%;
+                        background: rgba(51,51,51,0.85);
+                        padding: 16px 0;
+                        margin-bottom: 40px;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: sticky;
+                        top: 0;
+                        z-index: 2;
+                }
+                .navbar a {
+                        color: #fff;
+                        text-decoration: none;
+                        margin: 0 30px;
+                        font-size: 1.3em;
+                        letter-spacing: 1px;
+                        font-weight: 500;
+                        transition: color 0.2s, text-shadow 0.2s;
+                }
+                .navbar a:hover {
+                        color: #ffb347;
+                        text-shadow: 0 2px 8px #ffb347;
+                }
+                .calculator, .home, .game {
+                        width: 340px;
+                        margin: 60px auto;
+                        padding: 28px 24px 24px 24px;
+                        background: rgba(255,255,255,0.98);
+                        border-radius: 20px;
+                        box-shadow: 0 12px 40px rgba(44,62,80,0.22);
+                        position: relative;
+                        overflow: hidden;
+                        animation: fadeIn 0.7s;
+                }
+                @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(30px);}
+                        to { opacity: 1; transform: translateY(0);}
+                }
+                .calculator::before, .home::before, .game::before {
+                        content: "";
+                        position: absolute;
+                        top: -40px; right: -40px;
+                        width: 120px; height: 120px;
+                        background: radial-gradient(circle, #ffb347 0%, #74ebd5 100%);
+                        opacity: 0.18;
+                        border-radius: 50%;
+                        z-index: 0;
+                }
+                .home::before {
+                        top: auto; right: auto; bottom: -40px; left: -40px;
+                        background: radial-gradient(circle, #ACB6E5 0%, #74ebd5 100%);
+                }
+                .game::before {
+                        top: auto; right: auto; bottom: -40px; left: -40px;
+                        background: radial-gradient(circle, #ffb347 0%, #ACB6E5 100%);
+                }
+                .display {
+                        width: 100%;
+                        height: 48px;
+                        margin-bottom: 16px;
+                        text-align: right;
+                        font-size: 2em;
+                        padding: 8px 12px;
+                        border: none;
+                        border-radius: 12px;
+                        background: #f7fafd;
+                        box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+                        color: #333;
+                        outline: none;
+                        font-weight: 600;
+                        letter-spacing: 1px;
+                        position: relative;
+                        z-index: 1;
+                        transition: box-shadow 0.2s;
+                }
+                .display:focus {
+                        box-shadow: 0 4px 16px #ffb34755;
+                }
+                .buttons {
+                        display: grid;
+                        grid-template-columns: repeat(4, 1fr);
+                        gap: 14px;
+                        position: relative;
+                        z-index: 1;
+                }
+                button {
+                        padding: 18px;
+                        font-size: 1.1em;
+                        border: none;
+                        border-radius: 12px;
+                        background: linear-gradient(135deg, #ffb347 0%, #74ebd5 100%);
+                        color: #333;
+                        cursor: pointer;
+                        font-weight: 500;
+                        box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+                        transition: background 0.2s, transform 0.2s, color 0.2s;
+                }
+                button:hover {
+                        background: linear-gradient(135deg, #74ebd5 0%, #ffb347 100%);
+                        transform: scale(1.08);
+                        color: #222;
+                }
+                button:active {
+                        background: #ffb347;
+                        color: #fff;
+                }
+                .home h2, .game h2 {
+                        font-size: 2em;
+                        color: #333;
+                        margin-bottom: 12px;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                }
+                .home p, .game p {
+                        font-size: 1.15em;
+                        color: #555;
+                        margin-bottom: 0;
+                }
+                .game input[type="number"] {
+                        width: 80px;
+                        padding: 8px;
+                        font-size: 1.1em;
+                        border-radius: 8px;
+                        border: 1px solid #ACB6E5;
+                        margin-right: 10px;
+                }
+                .game button {
+                        padding: 10px 18px;
+                        font-size: 1em;
+                        border-radius: 8px;
+                        background: linear-gradient(135deg, #74ebd5 0%, #ffb347 100%);
+                        color: #333;
+                        font-weight: 500;
+                }
+                .game-result {
+                        margin-top: 18px;
+                        font-size: 1.1em;
+                        color: #ff5722;
+                        font-weight: 600;
+                }
+        </style>
+</head>
+<body>
+        <div class="navbar">
+                <a href="#" id="home-link">Home</a>
+                <a href="#" id="calculator-link">Calculator</a>
+                <a href="#" id="game-link">Game</a>
+        </div>
+        <div id="home-page" class="home" style="display: block;">
+                <h2>Welcome to the Calculator App</h2>
+                <p>Click "Calculator" in the navigation bar to use the calculator.<br>
+                Or try the guessing game for fun!</p>
+        </div>
+        <div id="calculator-page" class="calculator" style="display: none;">
+                <input type="text" class="display" id="display" readonly>
+                <div class="buttons">
+                        <button>7</button>
+                        <button>8</button>
+                        <button>9</button>
+                        <button>/</button>
+                        <button>4</button>
+                        <button>5</button>
+                        <button>6</button>
+                        <button>*</button>
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>-</button>
+                        <button>0</button>
+                        <button>.</button>
+                        <button>=</button>
+                        <button>+</button>
+                </div>
+        </div>
+        <div id="game-page" class="game" style="display: none;">
+                <h2>Number Guessing Game</h2>
+                <p>Guess a number between <b>1</b> and <b>20</b>!</p>
+                <input type="number" id="guess-input" min="1" max="20" placeholder="Your guess">
+                <button id="guess-btn">Guess</button>
+                <div class="game-result" id="game-result"></div>
+                <button id="restart-btn" style="display:none;margin-top:10px;">Restart</button>
+        </div>
+        <script>
+                // Navigation logic
+                const homeLink = document.getElementById('home-link');
+                const calculatorLink = document.getElementById('calculator-link');
+                const gameLink = document.getElementById('game-link');
+                const homePage = document.getElementById('home-page');
+                const calculatorPage = document.getElementById('calculator-page');
+                const gamePage = document.getElementById('game-page');
+
+                function showPage(page) {
+                        homePage.style.display = 'none';
+                        calculatorPage.style.display = 'none';
+                        gamePage.style.display = 'none';
+                        page.style.display = 'block';
+                }
+
+                homeLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showPage(homePage);
+                });
+
+                calculatorLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showPage(calculatorPage);
+                });
+
+                gameLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showPage(gamePage);
+                });
+
+                // Calculator logic
+                const display = document.getElementById('display');
+                const buttons = calculatorPage.querySelectorAll('.buttons button');
+                let current = '';
+
+                buttons.forEach(button => {
+                        button.addEventListener('click', () => {
+                                const value = button.textContent;
+                                if (value === '=') {
+                                        try {
+                                                current = eval(current).toString();
+                                        } catch {
+                                                current = 'Error';
+                                        }
+                                } else {
+                                        if (current === 'Error') current = '';
+                                        current += value;
+                                }
+                                display.value = current;
+                        });
+                });
+
+                // Game logic
+                let secret = Math.floor(Math.random() * 20) + 1;
+                let attempts = 0;
+                const guessInput = document.getElementById('guess-input');
+                const guessBtn = document.getElementById('guess-btn');
+                const gameResult = document.getElementById('game-result');
+                const restartBtn = document.getElementById('restart-btn');
+
+                guessBtn.addEventListener('click', function() {
+                        const guess = Number(guessInput.value);
+                        if (!guess || guess < 1 || guess > 20) {
+                                gameResult.textContent = "Please enter a valid number between 1 and 20.";
+                                return;
+                        }
+                        attempts++;
+                        if (guess === secret) {
+                                gameResult.textContent = `🎉 Correct! You guessed in ${attempts} attempts.`;
+                                guessBtn.disabled = true;
+                                restartBtn.style.display = 'inline-block';
+                        } else if (guess < secret) {
+                                gameResult.textContent = "Try higher!";
+                        } else {
+                                gameResult.textContent = "Try lower!";
+                        }
+                });
+
+                restartBtn.addEventListener('click', function() {
+                        secret = Math.floor(Math.random() * 20) + 1;
+                        attempts = 0;
+                        gameResult.textContent = "";
+                        guessInput.value = "";
+                        guessBtn.disabled = false;
+                        restartBtn.style.display = 'none';
+                });
+        </script>
+</body>
+</html>

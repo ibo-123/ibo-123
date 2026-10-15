@@ -1,0 +1,379 @@
+====================================================================================================
+                  HABESHA FREIGHT DIGITAL FREIGHT MARKETPLACE
+            FRONTEND ARCHITECTURE, SECURITY PROTOCOLS & PROJECT FLOW
+====================================================================================================
+Document Version: 1.0.0
+Date: August 2026
+System: HabeshaFreight Frontend Web Application
+Authors: HabeshaFreight Frontend Engineering Team
+
+----------------------------------------------------------------------------------------------------
+TABLE OF CONTENTS
+----------------------------------------------------------------------------------------------------
+1. SYSTEM OVERVIEW & FRONTEND TECH STACK
+2. FRONTEND ARCHITECTURE & DIRECTORY STRUCTURE
+3. COMPONENT & PAGE SYSTEM BREAKDOWN
+   - Shipper Portal Modules
+   - Driver Portal Modules
+   - Transport Company (Fleet Owner) Modules
+   - Admin Operations Suite Modules
+4. FRONTEND SECURITY PROTOCOLS & IMPLEMENTATION DETAILS
+   - JWT Bearer Interception & LocalStorage Persistence
+   - Client-Side Role-Based Access Control (RBAC)
+   - Identity & KYC Verification Routing Guards
+   - Form Validation & File Upload Security
+   - Automatic Session Invalidation & Error Interception
+5. STATE MANAGEMENT & API SERVICE LAYER
+6. END-TO-END FRONTEND BUSINESS WORKFLOWS & USER FLOWS
+   - Flow 1: Visitor Landing, Registration, OTP Verification & KYC Pending Route
+   - Flow 2: Shipper Load Creation, Bidding Management & Escrow Payment
+   - Flow 3: Driver Load Discovery, Bid Submission, OTP Handover & Live GPS Broadcast
+   - Flow 4: Transport Company Fleet Asset & Driver Assignment Management
+   - Flow 5: Admin Governance, Verification Queue & Dispute Resolution
+7. PRODUCTION BUILD & DEPLOYMENT CONFIGURATION
+
+
+====================================================================================================
+1. SYSTEM OVERVIEW & FRONTEND TECH STACK
+====================================================================================================
+HabeshaFreight Frontend is a modern, responsive Single Page Application (SPA) built to deliver 
+a role-tailored digital workspace for Shippers, Drivers, Fleet Owners, and Platform Administrators. 
+It features role-specific navigation layouts, interactive dashboards, real-time spatial tracking 
+views, payment escrow modally-driven workflows, and comprehensive verification queues.
+
+Core Frontend Technical Stack:
+- Core Framework: React 18.3.1
+- Build Tool & Dev Server: Vite 5.4.1 (ES Modules build optimization)
+- Programming Language: TypeScript 5.5.3 (Strict Type Safety & Interface Contracts)
+- Routing Engine: React Router DOM 6.26.2 (Browser Router with Splat & Transition Flags)
+- Styling & UI Engine: Tailwind CSS 3.4.19 with PostCSS & Autoprefixer
+- State Management: React Context API (`AuthContext`, `ThemeContext`)
+- HTTP & API Client: Axios 1.19.0 (Custom instance with Request/Response Interceptors)
+- Iconography & UI Assets: Lucide React (Modular SVG Icons)
+- Containerization & Production Web Server: Docker & Nginx (Multi-Stage Build Pipeline)
+
+
+====================================================================================================
+2. FRONTEND ARCHITECTURE & DIRECTORY STRUCTURE
+====================================================================================================
+The frontend project follows a Feature-Driven Component Architecture. Code is partitioned 
+logically by domain roles (`shipper`, `driver`, `company`, `admin`), shared services, shared 
+context providers, and layout templates.
+
+Directory Structure Breakdown:
+----------------------------------------------------------------------------------------------------
+Habesha_Freight/
+└── frontend/
+    ├── src/
+    │   ├── App.tsx                 # Central Router configuration & layout wrapper mapping
+    │   ├── main.tsx                # Application entry point rendering <App /> into DOM
+    │   ├── index.css               # Global Tailwind CSS directives & custom design tokens
+    │   ├── context/
+    │   │   ├── AuthContext.tsx     # Authentication state, login, OTP verify, user profile
+    │   │   └── ThemeContext.tsx    # Light/Dark mode theme state provider
+    │   ├── routes/
+    │   │   └── ProtectedRoute.tsx  # Role guard & KYC pending verification route interceptor
+    │   ├── services/
+    │   │   ├── api.ts              # Axios instance setup, interceptors, response unwrappers
+    │   │   ├── authService.ts      # Auth local storage persistence & endpoint bindings
+    │   │   ├── adminApi.ts         # Type-safe API client for 32 Admin REST endpoints
+    │   │   └── themeService.ts     # Dark mode local storage persistence helper
+    │   ├── layouts/
+    │   │   ├── MainLayout.tsx      # Public layout with top navbar & footer
+    │   │   ├── DriverLayout.tsx    # Specialized Driver portal layout with active trip bar
+    │   │   └── CompanyLayout.tsx   # Fleet Owner layout with fleet stats sidebar
+    │   ├── types/
+    │   │   └── person2.ts          # Central TypeScript interfaces (User, Load, Bid, Shipment, etc.)
+    │   ├── pages/
+    │   │   ├── PendingApproval.tsx # Hold screen for Drivers/Fleet Owners awaiting KYC approval
+    │   │   ├── shipper/            # Shipper Portal Pages
+    │   │   │   ├── Login.tsx       # Auth Login page (Phone/Email + Password)
+    │   │   │   ├── Register.tsx    # User registration with file upload
+    │   │   │   ├── VerifyOTP.tsx   # 6-Digit OTP verification interface
+    │   │   │   ├── ShipperHome.tsx # Public landing page with features & CTA
+    │   │   │   ├── ShipperLayout.tsx # Shipper dashboard layout with navigation header
+    │   │   │   ├── ShipperDashboard.tsx # Active loads, spend summary, quick actions
+    │   │   │   ├── ShipperCreateShipment.tsx # Load creation form with coordinate inputs
+    │   │   │   ├── ShipperShipments.tsx # List of cargo shipments & status filters
+    │   │   │   ├── ShipperBids.tsx # Driver bid review, acceptance, & rejection
+    │   │   │   ├── ShipperPayments.tsx # Escrow deposit modal (Telebirr/Chapa) & ledger
+    │   │   │   ├── ShipperTracking.tsx # Real-time shipment GPS tracking view
+    │   │   │   ├── ShipperFleet.tsx# Nearby verified vehicles & drivers directory
+    │   │   │   ├── ShipperRatings.tsx # Post-delivery rating submission
+    │   │   │   ├── ShipperProfile.tsx # Shipper user profile & settings
+    │   │   │   └── ShipperHistory.tsx # Completed cargo history
+    │   │   ├── driver/             # Driver Portal Pages
+    │   │   │   ├── DriverDashboard.tsx # Active trips, earnings overview, quick status
+    │   │   │   ├── AvailableLoads.tsx # Spatial load search & radius filtering
+    │   │   │   ├── RequestDetails.tsx # Detailed load view before bidding
+    │   │   │   ├── SubmitBid.tsx   # Bid submission form with vehicle selection
+    │   │   │   ├── BidHistory.tsx  # Tracked submitted bids (Pending/Accepted/Rejected)
+    │   │   │   ├── ActiveDelivery.tsx # Active shipment dispatch, Pickup/Delivery OTP inputs
+    │   │   │   ├── DeliveryDetails.tsx # Detailed view of assigned cargo shipment
+    │   │   │   ├── DeliveryHistory.tsx # Past completed freight trips
+    │   │   │   ├── LiveTracking.tsx # Live GPS location broadcasting interface
+    │   │   │   ├── GPSTracking.tsx # Real-time position emitter service view
+    │   │   │   ├── DriverWallet.tsx # Earnings breakdown, pending escrow, payout history
+    │   │   │   ├── DriverRatings.tsx # Driver reviews & performance feedback
+    │   │   │   ├── DriverMessages.tsx # In-app chat with cargo shippers
+    │   │   │   ├── DriverInfo.tsx  # Driver profile details
+    │   │   │   ├── DriverLicense.tsx # License document view & upload status
+    │   │   │   └── DriverSettings.tsx # Driver preferences & notifications
+    │   │   ├── company/            # Fleet Owner Company Pages
+    │   │   │   ├── CompanyDashboard.tsx # Fleet status summary, total trucks, active revenue
+    │   │   │   ├── CompanyVehicles.tsx  # Vehicle asset CRUD & verification status
+    │   │   │   ├── CompanyDrivers.tsx   # Attached company drivers directory
+    │   │   │   ├── CompanyFleetRequests.tsx # Freight requests assigned to fleet
+    │   │   │   ├── CompanyDeliveries.tsx# Overall fleet deliveries monitor
+    │   │   │   ├── CompanyRatings.tsx   # Aggregated fleet ratings & customer feedback
+    │   │   │   ├── CompanySettings.tsx  # Company registration details & settings
+    │   │   │   └── CompanyProfile.tsx   # Public company profile view
+    │   │   └── admin/              # Platform Admin Suite Pages
+    │   │       ├── AdminDashboard.tsx   # Platform metrics, revenue summaries, system status
+    │   │       ├── AdminUsers.tsx       # User Directory (Search, Suspend, Activate, Roles)
+    │   │       ├── AdminDrivers.tsx     # Driver oversight directory
+    │   │       ├── AdminCompanies.tsx   # Transport company fleet oversight
+    │   │       ├── AdminVehicles.tsx    # Vehicle fleet verification directory
+    │   │       ├── AdminDeliveries.tsx  # System-wide shipments oversight
+    │   │       ├── AdminVerification.tsx# KYC Document Verification Queue (Approve/Reject)
+    │   │       ├── AdminPayments.tsx    # Escrow ledger oversight & manual releases/refunds
+    │   │       ├── AdminDisputes.tsx    # Open dispute arbitration (Refund/Release decisions)
+    │   │       ├── AdminReports.tsx     # Platform analytics & exportable PDF/Excel reports
+    │   │       └── AdminAuditLogs.tsx   # Immutable security audit trail search & filter
+    ├── index.html                  # Main HTML template
+    ├── package.json                # Project dependencies and script runner
+    ├── tailwind.config.js          # Tailwind CSS theme extension
+    ├── vite.config.ts              # Vite server settings & alias resolvers
+    └── Dockerfile & nginx.conf     # Multi-stage production container setup
+
+
+====================================================================================================
+3. COMPONENT & PAGE SYSTEM BREAKDOWN
+====================================================================================================
+
+1. Shipper Portal Modules (`/pages/shipper/*`):
+   - `ShipperHome`: Landing page featuring value propositions, regional route coverage, and quick login/register links.
+   - `ShipperDashboard`: Command center displaying cargo statistics (Total, Active, Completed, Pending Bids, Total Spend).
+   - `ShipperCreateShipment`: Multi-step form capturing cargo description, weight in tons, origin/destination cities, GPS coordinates, and initial offered price in ETB.
+   - `ShipperBids`: Real-time view of driver offers submitted for posted loads. Displays driver rating, past completed trips, offered price, and vehicle capacity checks. Contains action buttons for Accepting or Rejecting bids.
+   - `ShipperPayments`: Displays locked escrow funds, gateway references, and provides deposit action buttons for Telebirr and Chapa payments.
+   - `ShipperTracking`: Interactive map view tracking assigned driver location coordinates in real-time.
+
+2. Driver Portal Modules (`/pages/driver/*`):
+   - `DriverDashboard`: Mobile-optimized driver view summarizing current trip status, wallet balance, active bids, and quick navigation.
+   - `AvailableLoads`: Spatial cargo search displaying loads filtered by origin city, destination, and distance radius.
+   - `SubmitBid`: Modal/page allowing drivers to select an active verified vehicle from their fleet, enter a competitive price bid in ETB, and submit.
+   - `ActiveDelivery`: High-priority operational view for active trips. Contains input fields for Pickup OTP (at cargo collection) and Delivery OTP (at cargo delivery).
+   - `DriverWallet`: Financial balance view breaking down gross earnings, platform commission (5%), locked escrow, and released payout funds.
+
+3. Transport Company (Fleet Owner) Modules (`/pages/company/*`):
+   - `CompanyDashboard`: Executive metrics for fleet operators (Total Vehicles, Active Drivers, Total Fleet Revenue).
+   - `CompanyVehicles`: Inventory management interface for adding trucks, entering license plate numbers, capacity in tons, vehicle type ('ISUZU', 'SINO_TRUCK', 'TRAILER', 'PICKUP'), and tracking verification state.
+   - `CompanyDrivers`: Directory for attaching drivers to company fleet assets.
+
+4. Admin Operations Suite Modules (`/pages/admin/*`):
+   - `AdminDashboard`: Platform governance suite showing system health indicators, user growth, revenue metrics, and system activity logs.
+   - `AdminVerification`: KYC Queue displaying driver license photos and fleet owner registration certificates for verification. Features Approve and Reject controls.
+   - `AdminDisputes`: Arbitration board for open disputes. Admins view dispute category ('DAMAGE', 'DELAY', 'PAYMENT', 'OTHER'), review claims, enter resolution notes, and trigger either `REFUND_SHIPPER` or `RELEASE_CARRIER`.
+   - `AdminAuditLogs`: Detailed search and filter view for inspecting security audit events.
+
+
+====================================================================================================
+4. FRONTEND SECURITY PROTOCOLS & IMPLEMENTATION DETAILS
+====================================================================================================
+The frontend application implements strict security controls to protect client sessions, 
+enforce role separation, and prevent unauthorized state access:
+
+1. JWT Bearer Interception & LocalStorage Storage:
+   - Upon successful login or OTP verification, the backend JWT token is stored in `localStorage` under `hf_token`.
+   - The central Axios client (`axiosInstance` in `services/api.ts`) configures a request interceptor:
+     ```typescript
+     axiosInstance.interceptors.request.use((config) => {
+       const token = localStorage.getItem('hf_token');
+       if (token) {
+         config.headers['Authorization'] = `Bearer ${token}`;
+       }
+       return config;
+     });
+     ```
+   - Every outgoing API call automatically attaches the Bearer token without manual code replication.
+
+2. Client-Side Role-Based Access Control (RBAC):
+   - Enforced by `ProtectedRoute.tsx`.
+   - Before rendering any route, `ProtectedRoute` inspects the active user role from `AuthContext`:
+     * If unauthenticated -> Redirects to `/login`.
+     * If user role does NOT match `allowedRoles` -> Automatically redirects user to their designated home route:
+       - `DRIVER` -> `/driver`
+       - `FLEET_OWNER` -> `/company`
+       - `ADMIN` -> `/admin`
+       - `SHIPPER` -> `/dashboard`
+
+3. Identity & KYC Verification Routing Guards:
+   - For users with role `DRIVER` or `FLEET_OWNER`, `ProtectedRoute` evaluates `kyc_status`.
+   - If `kyc_status === 'PENDING'`, the user is restricted from accessing operational pages and automatically redirected to `/pending-approval`.
+   - Access to bidding and active delivery features is blocked until an Administrator approves their identity documents.
+
+4. Form Input Validation & File Upload Security:
+   - Form fields undergo client-side validation (email format, phone number regex, non-negative numbers for prices/weight).
+   - Document uploads (Driver License / Company Registration) use `FileService` client checks to restrict files to image/PDF formats with a maximum file size limit (10MB).
+   - Multi-part requests are submitted via `FormData` payloads.
+
+5. Automatic Session Invalidation & Error Interception:
+   - The Axios response interceptor captures HTTP `401 Unauthorized` or `TOKEN_EXPIRED` errors.
+   - On expiration, the client automatically clears `hf_token` and `hf_user` from `localStorage` and resets `AuthContext` state, redirecting the user safely to `/login`.
+
+
+====================================================================================================
+5. STATE MANAGEMENT & API SERVICE LAYER
+====================================================================================================
+State management relies on a clean, centralized React Context Architecture paired with modular 
+API service wrappers:
+
+1. Context State Providers:
+   - `AuthContext`: Manages current `user` object, `token` string, `isLoading` state, `login()`, `register()`, `verifyOtp()`, and `logout()` actions.
+   - `ThemeContext`: Toggles application-wide Light/Dark themes and persists selection in `localStorage`.
+
+2. Service Layer Wrappers:
+   - `services/api.ts`: Exports unwrapped helper methods (`get`, `post`, `put`, `patch`, `del`) that parse standardized backend envelopes (`{ success, message, data }`) and return clean payload data directly.
+   - `services/authService.ts`: Abstracts token retrieval, session storage, and current user profile fetching (`GET /api/auth/me`).
+   - `services/adminApi.ts`: Type-safe client method collection covering all 32 Admin REST endpoints.
+
+
+====================================================================================================
+6. END-TO-END FRONTEND BUSINESS WORKFLOWS & USER FLOWS
+====================================================================================================
+
+Flow 1: Visitor Landing, Registration, OTP Verification & KYC Pending Route
+----------------------------------------------------------------------------------------------------
+[Visitor] --(Navigates to Landing Page)----> [ShipperHome.tsx (/)]
+                                                    |
+[Visitor] --(Clicks Register)-------------> [Register.tsx (/register)]
+                                                    |
+                                    (Fills Name, Email, Phone, Password, Role)
+                                    (Uploads License Document if Driver)
+                                                    |
+                                         [POST /api/auth/register]
+                                                    |
+[User]    --(Navigates to OTP Verification)--> [VerifyOTP.tsx (/verify-otp)]
+                                                    |
+                                         (Inputs 6-Digit OTP Code)
+                                         [POST /api/auth/verify-otp]
+                                                    |
+                         +--------------------------+--------------------------+
+                         |                                                     |
+                 [Role == SHIPPER]                                    [Role == DRIVER / FLEET_OWNER]
+                         |                                                     |
+             (Navigates to Dashboard)                                (kyc_status == PENDING)
+             [ShipperDashboard (/dashboard)]                                   |
+                                                                  (ProtectedRoute Redirects)
+                                                                               |
+                                                                    [PendingApproval.tsx]
+                                                               (Awaits Admin KYC Approval)
+
+
+Flow 2: Shipper Load Creation, Bidding Management & Escrow Payment
+----------------------------------------------------------------------------------------------------
+[Shipper] --(Navigates to Create Load)---> [ShipperCreateShipment.tsx (/shipments/create)]
+                                                    |
+                                    (Inputs Origin, Destination, Weight, Price)
+                                    [POST /api/loads]
+                                                    |
+[Shipper] --(Navigates to Bids View)-----> [ShipperBids.tsx (/bids)]
+                                                    |
+                                    (Reviews incoming Driver Bids)
+                                    (Inspects Driver Rating & Vehicle Capacity)
+                                                    |
+[Shipper] --(Clicks Accept Bid)----------> [PATCH /api/bids/:id/status]
+                                                    |
+                                    (Shipment Record Created with OTP Hashes)
+                                                    |
+[Shipper] --(Navigates to Payments)------> [ShipperPayments.tsx (/payments)]
+                                                    |
+                                    (Selects Telebirr or Chapa Gateway)
+                                    [POST /api/escrow/deposit]
+                                                    |
+                                    (Escrow Status set to LOCKED)
+
+
+Flow 3: Driver Load Discovery, Bid Submission, OTP Handover & Live GPS Broadcast
+----------------------------------------------------------------------------------------------------
+[Driver]  --(Navigates to Load Search)----> [AvailableLoads.tsx (/driver/requests/loads)]
+                                                    |
+                                    (Applies Spatial Radius & Cargo Filters)
+                                    [GET /api/loads/nearby]
+                                                    |
+[Driver]  --(Submits Price Bid)----------> [SubmitBid.tsx (/driver/bids/submit)]
+                                                    |
+                                    (Selects Verified Vehicle & Offers Price)
+                                    [POST /api/bids]
+                                                    |
+             ... Wait for Shipper Acceptance ...
+                                                    |
+[Driver]  --(Navigates to Active Trip)---> [ActiveDelivery.tsx (/driver/active-delivery)]
+                                                    |
+[Driver]  --(Obtains Pickup OTP from Shipper & Enters Code)
+                                                    |
+                                    [POST /api/shipments/:id/pickup-verify]
+                                    (Status updated to IN_TRANSIT)
+                                                    |
+[Driver]  --(Broadcasts GPS Position)----> [LiveTracking.tsx (/driver/deliveries/tracking)]
+                                                    |
+                                    [POST /api/tracking/location]
+                                                    |
+[Driver]  --(Arrives at Destination & Enters Delivery OTP)
+                                                    |
+                                    [POST /api/shipments/:id/delivery-verify]
+                                    (Status updated to DELIVERED)
+                                    (Escrow Funds RELEASED to Driver Wallet)
+
+
+Flow 4: Transport Company Fleet Asset & Driver Assignment Management
+----------------------------------------------------------------------------------------------------
+[Company] --(Navigates to Fleet Vehicles)-> [CompanyVehicles.tsx (/company/vehicles)]
+                                                    |
+                                    (Adds Truck Plate, Type & Capacity Tons)
+                                    (Submits Vehicle for Admin Verification)
+                                                    |
+[Company] --(Navigates to Drivers)--------> [CompanyDrivers.tsx (/company/drivers)]
+                                                    |
+                                    (Attaches Drivers to Company Vehicles)
+                                                    |
+[Company] --(Views Assigned Requests)-----> [CompanyFleetRequests.tsx (/company/fleet-requests)]
+                                                    |
+                                    (Monitors Fleet Revenue & Active Trips)
+
+
+Flow 5: Admin Governance, Verification Queue & Dispute Resolution
+----------------------------------------------------------------------------------------------------
+[Admin]   --(Navigates to Verification)--> [AdminVerification.tsx (/admin/verification)]
+                                                    |
+                                    (Reviews Uploaded Licenses & Certificates)
+                                    (Clicks Approve -> User kyc_status = APPROVED)
+                                                    |
+[Admin]   --(Navigates to Disputes)------> [AdminDisputes.tsx (/admin/disputes)]
+                                                    |
+                                    (Reviews Claim Details & Resolution Options)
+                                    (Executes REFUND_SHIPPER or RELEASE_CARRIER)
+                                                    |
+[Admin]   --(Navigates to Audit Logs)----> [AdminAuditLogs.tsx (/admin/audit-logs)]
+                                                    |
+                                    (Filters & Inspects System Audit Trail)
+
+
+====================================================================================================
+7. PRODUCTION BUILD & DEPLOYMENT CONFIGURATION
+====================================================================================================
+The frontend is configured for production deployment using Vite bundler and containerized Nginx:
+
+1. Build & Compilation (`npm run build`):
+   - TypeScript compiler type-checks the entire codebase (`tsc`).
+   - Vite compiles React components, optimizes assets, tree-shakes unused dependencies, and outputs minified static assets to the `dist/` directory.
+
+2. Production Containerization (`Dockerfile`):
+   - Stage 1 (Build): Uses Node.js 20 container to install dependencies and run `npm run build`.
+   - Stage 2 (Serve): Copies compiled `dist/` static files to lightweight Nginx Alpine container.
+   - Nginx Routing Configuration (`nginx.conf`): Serves `index.html` for all client-side routes, enabling smooth HTML5 React Router single-page navigation without 404 server errors.
+
+====================================================================================================
+END OF FRONTEND ARCHITECTURE & SECURITY SPECIFICATION DOCUMENT
+====================================================================================================

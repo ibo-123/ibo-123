@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HabeshaFreight - Complete System Requirements Specification & Architecture Documentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --primary-blue: #0052CC;
+            --secondary-blue: #0747A6;
+            --accent-green: #00875A;
+            --gold-accent: #FFAB00;
+            --bg-white: #FFFFFF;
+            --bg-light: #F4F5F7;
+            --bg-card: #FAFBFC;
+            --border-color: #DFE1E6;
+            --text-dark: #091E42;
+            --text-muted: #5E6C84;
+            --shadow-subtle: 0 4px 12px rgba(9, 30, 66, 0.06);
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: #525659;
+            line-height: 1.4;
+        }
+
+        .pdf-page {
+            width: 210mm;
+            height: 297mm;
+            padding: 18mm 18mm 20mm 18mm;
+            margin: 10px auto;
+            background: var(--bg-white);
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        /* Fixed Header and Footer for Document Pages */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .page-header .brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 14pt;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-header .brand-accent {
+            color: var(--accent-green);
+        }
+
+        .page-header .doc-title {
+            font-size: 8.5pt;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+            margin-top: auto;
+            font-size: 8pt;
+            color: var(--text-muted);
+        }
+
+        .page-footer .page-number {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Typography Utilities */
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+        }
+
+        .section-title {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 7.5pt;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-blue { background: #E3F2FD; color: #1565C0; }
+        .badge-green { background: #E8F5E9; color: #2E7D32; }
+        .badge-gold { background: #FFF8E1; color: #F57F17; }
+
+        /* Specific Page Styling */
+        /* Cover Page */
+        .cover-page {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F4F5F7 100%);
+            padding: 25mm 20mm;
+            text-align: center;
+            justify-content: space-between;
+        }
+        .cover-top { text-align: center; }
+        .cover-logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-white);
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 25px;
+        }
+        .cover-title {
+            font-size: 38pt;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        .cover-subtitle {
+            font-size: 16pt;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+        .cover-vision {
+            font-size: 11pt;
+            color: var(--text-muted);
+            font-style: italic;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        .corridor-map-container {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-subtle);
+        }
+        .corridor-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .corridor-chip {
+            background: #EBF3FF;
+            color: var(--secondary-blue);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 8.5pt;
+            font-weight: 600;
+            border: 1px solid #B3D4FF;
+        }
+
+        /* Flowchart Components */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .flow-horizontal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+        }
+        .flow-step {
+            background: var(--bg-white);
+            border: 1.5px solid var(--primary-blue);
+            border-radius: 6px;
+            padding: 8px 6px;
+            text-align: center;
+            flex: 1;
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-card);
+        }
+        .flow-arrow {
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 12pt;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+            margin-top: 6px;
+        }
+        th {
+            background: #EBECF0;
+            color: var(--text-dark);
+            text-align: left;
+            padding: 6px 8px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+        td {
+            padding: 6px 8px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        tr:nth-child(even) td {
+            background-color: #FAFBFC;
+        }
+
+        /* Action Controls for Floating PDF Export */
+        #export-bar {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 9999;
+            background: #091E42;
+            padding: 10px 16px;
+            border-radius: 30px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        #export-bar button {
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 9pt;
+            transition: all 0.2s;
+        }
+        #export-bar button:hover {
+            background: #006644;
+            transform: translateY(-1px);
+        }
+
+        /* Print Override */
+        @media print {
+            #export-bar { display: none !important; }
+            body { background: white; }
+            .pdf-page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="export-bar">
+        <span style="color: white; font-size: 9pt; font-family: sans-serif;">Document Ready (24 Pages A4)</span>
+        <button onclick="generatePDF()">Export Complete PDF</button>
+    </div>
+
+    <div id="pdf-container">
+
+        <!-- ================= PAGE 1: COVER ================= -->
+        <div class="pdf-page cover-page">
+            <div class="cover-top">
+                <div class="cover-logo-badge">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 7h-3V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-11-2h4v2H8V5zm11 14H5V9h14v10z" fill="#0052CC"/><circle cx="9" cy="14" r="1.5" fill="#00875A"/><circle cx="15" cy="14" r="1.5" fill="#FFAB00"/></svg>
+                    <span style="font-weight: 700; color: var(--text-dark); font-size: 10pt;">SENIOR SOFTWARE ENGINEERING PROJECT</span>
+                </div>
+                <h1 class="cover-title">HABESHAFREIGHT</h1>
+                <div class="cover-subtitle">Digital Freight Marketplace for Ethiopia</div>
+                <p class="cover-vision">"Connecting Cargo. Connecting Drivers. Connecting Ethiopia."</p>
+            </div>
+
+            <div class="corridor-map-container">
+                <h4 style="color: var(--secondary-blue); font-size: 10pt; margin-bottom: 8px;">PRIMARY TRANSPORTATION CORRIDORS</h4>
+                <svg width="100%" height="180" viewBox="0 0 500 180" fill="none" style="background: #F9FAFB; border-radius: 8px;">
+                    <!-- Stylized Map Connections -->
+                    <circle cx="200" cy="100" r="8" fill="#0052CC" /> <!-- Addis Ababa -->
+                    <text x="200" y="122" font-weight="bold" font-size="9" text-anchor="middle" fill="#091E42">Addis Ababa (Hub)</text>
+
+                    <line x1="200" y1="100" x2="280" y2="120" stroke="#00875A" stroke-width="3" stroke-dasharray="4" />
+                    <circle cx="280" cy="120" r="6" fill="#00875A" />
+                    <text x="290" y="132" font-size="8" fill="#5E6C84">Adama</text>
+
+                    <line x1="200" y1="100" x2="250" y2="160" stroke="#00875A" stroke-width="3" stroke-dasharray="4" />
+                    <circle cx="250" cy="160" r="6" fill="#00875A" />
+                    <text x="250" y="174" font-size="8" text-anchor="middle" fill="#5E6C84">Hawassa</text>
+
+                    <line x1="200" y1="100" x2="140" y2="40" stroke="#00875A" stroke-width="3" stroke-dasharray="4" />
+                    <circle cx="140" cy="40" r="6" fill="#00875A" />
+                    <text x="140" y="30" font-size="8" text-anchor="middle" fill="#5E6C84">Bahir Dar</text>
+
+                    <line x1="200" y1="100" x2="360" y2="80" stroke="#00875A" stroke-width="3" stroke-dasharray="4" />
+                    <circle cx="360" cy="80" r="6" fill="#00875A" />
+                    <text x="370" y="92" font-size="8" fill="#5E6C84">Dire Dawa</text>
+
+                    <!-- Future Djibouti Line -->
+                    <line x1="360" y1="80" x2="440" y2="40" stroke="#FFAB00" stroke-width="2" stroke-dasharray="2" />
+                    <circle cx="440" cy="40" r="5" fill="#FFAB00" />
+                    <text x="440" y="30" font-size="8" text-anchor="middle" fill="#D97000">Djibouti (Future Phase)</text>
+                </svg>
+                <div class="corridor-list">
+                    <span class="corridor-chip">Addis Ababa ↔ Adama</span>
+                    <span class="corridor-chip">Addis Ababa ↔ Hawassa</span>
+                    <span class="corridor-chip">Addis Ababa ↔ Bahir Dar</span>
+                    <span class="corridor-chip">Addis Ababa ↔ Dire Dawa</span>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: left;" class="grid-2">
+                <div>
+                    <div style="font-size: 8pt; color: var(--text-muted); text-transform: uppercase;">Prepared For</div>
+                    <div style="font-weight: 700; font-size: 10pt; color: var(--primary-blue);">Department of Software Engineering</div>
+                    <div style="font-size: 8.5pt;">Faculty of Technology & Computer Science</div>
+                </div>
+                <div>
+                    <div style="font-size: 8pt; color: var(--text-muted); text-transform: uppercase;">Project Version & Date</div>
+                    <div style="font-weight: 700; font-size: 10pt; color: var(--text-dark);">v1.0.0 Final Requirements & Architecture</div>
+                    <div style="font-size: 8.5pt;">Academic Year 2025/2026</div>
+                </div>
+            </div>
+
+            <div style="font-size: 8pt; color: var(--text-muted); margin-top: 15px;">
+                Strictly light-themed documentation designed to A4 university submission guidelines.
+            </div>
+        </div>
+
+        <!-- ================= PAGE 2: INTRODUCTION ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">1. Executive Introduction</div>
+            </div>
+
+            <div>
+                <div class="section-title">1. Introduction & Overview</div>
+                <div class="section-subtitle">Modernizing Ethiopian freight transport through digital disintermediation.</div>
+
+                <div class="card" style="margin-bottom: 15px;">
+                    <h3 style="color: var(--primary-blue); font-size: 11pt; margin-bottom: 6px;">1.1 System Executive Summary</h3>
+                    <p style="font-size: 8.5pt; color: var(--text-dark); line-height: 1.5;">
+                        <strong>HabeshaFreight</strong> is an enterprise-grade digital freight marketplace engineered specifically to address structural inefficiencies within the Ethiopian logistics sector. By serving as an integrated ecosystem, the platform digitally connects Shippers requiring cargo transport with verified Independent Drivers and Fleet Operators. Through transparency, real-time tracking, financial escrow, and structured bidding, HabeshaFreight standardizes freight transactions across key economic corridors.
+                    </p>
+                </div>
+
+                <h3 style="color: var(--secondary-blue); font-size: 11pt; margin-bottom: 8px;">1.2 The Complete Digital Freight Lifecycle</h3>
+                <p style="font-size: 8pt; color: var(--text-muted); margin-bottom: 12px;">The platform manages cargo transport end-to-end, enforcing security and operational checkpoints at each phase:</p>
+
+                <div class="flow-container" style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <div class="flow-horizontal">
+                        <div class="flow-step">1. Load Posting<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Shipper defines cargo</span></div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">2. Bidding<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Carriers offer rates</span></div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">3. Selection<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Match confirmed</span></div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">4. Escrow<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Funds secured</span></div>
+                    </div>
+                    <div style="text-align: center; color: var(--accent-green); font-weight: bold; font-size: 12pt; margin: -2px 0;">↓</div>
+                    <div class="flow-horizontal">
+                        <div class="flow-step">8. Review<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Mutual ratings</span></div>
+                        <span class="flow-arrow">←</span>
+                        <div class="flow-step">7. Payout<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Escrow released</span></div>
+                        <span class="flow-arrow">←</span>
+                        <div class="flow-step">6. Transit & OTP<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Secure verification</span></div>
+                        <span class="flow-arrow">←</span>
+                        <div class="flow-step">5. Pickup<br/><span style="font-size: 6.5pt; color: var(--text-muted);">Driver dispatched</span></div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div class="card">
+                        <h4 style="color: var(--accent-green); font-size: 9.5pt; margin-bottom: 4px;">Target Strategic Corridors</h4>
+                        <p style="font-size: 8pt;">Initial operations focus on heavy commercial corridors radiating from Addis Ababa to regional distribution hubs including Adama, Hawassa, Bahir Dar, and Dire Dawa, capturing over 65% of domestic road freight throughput.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--primary-blue); font-size: 9.5pt; margin-bottom: 4px;">Socio-Economic Impact</h4>
+                        <p style="font-size: 8pt;">Reduces transit times by eliminating broker delays, boosts driver income through backhaul filling, and establishes price stability across regional supply chains.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 2</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 3: PROBLEM STATEMENT ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">2. Problem Statement</div>
+            </div>
+
+            <div>
+                <div class="section-title">2. Statement of Problem</div>
+                <div class="section-subtitle">Structural bottlenecks severely hindering the efficiency of Ethiopian road freight.</div>
+
+                <div class="grid-2" style="gap: 14px;">
+                    <div class="card" style="border-left: 4px solid #D32F2F;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <h3 style="font-size: 10.5pt; color: #D32F2F;">01 — Informal Broker Dependency</h3>
+                            <span class="badge badge-gold">Cost / Delay</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-bottom: 6px;">Traditional freight logistics in Ethiopia relies on non-standardized informal brokers (Delalas) operating without centralized oversight.</p>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); margin-left: 14px;">
+                            <li>Opaque broker commissions (10%-25% markups)</li>
+                            <li>Informal verbal agreements leading to frequent disputes</li>
+                            <li>Lack of accountability for lost or damaged goods</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid #F57C00;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <h3 style="font-size: 10.5pt; color: #F57C00;">02 — High Backhaul Inefficiency</h3>
+                            <span class="badge badge-gold">Resource Waste</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-bottom: 6px;">Trucks frequently return completely empty after completing a primary delivery run from Addis Ababa to regional cities.</p>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); margin-left: 14px;">
+                            <li>Up to 40% of total travel miles run without paid cargo</li>
+                            <li>Wasted fuel and excessive vehicle wear-and-tear</li>
+                            <li>Increased baseline freight prices to offset empty return trips</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid #C2185B;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <h3 style="font-size: 10.5pt; color: #C2185B;">03 — Trust & Payment Risks</h3>
+                            <span class="badge badge-gold">Financial Danger</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-bottom: 6px;">Predominantly cash-based payments create major financial friction and security liabilities for shippers and drivers alike.</p>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); margin-left: 14px;">
+                            <li>Uncertainty regarding payment settlement upon delivery</li>
+                            <li>Risk of carrying large sums of physical cash along transit corridors</li>
+                            <li>Absence of formal verification or escrow protection</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid #7B1FA2;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <h3 style="font-size: 10.5pt; color: #7B1FA2;">04 — Zero Shipment Visibility</h3>
+                            <span class="badge badge-gold">Operational Blindness</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-bottom: 6px;">Shippers experience zero real-time visibility once cargo is loaded onto a vehicle until it reaches its final destination.</p>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); margin-left: 14px;">
+                            <li>Inability to track exact truck coordinates or status</li>
+                            <li>Unpredictable delivery delays and missed schedules</li>
+                            <li>Reliance on intermittent direct phone calls with drivers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 15px; background: #FFF8E1; border-color: #FFE082;">
+                    <h4 style="color: #F57F17; font-size: 9pt;">Impact Summary on the Economy</h4>
+                    <p style="font-size: 8pt; color: #5D4037;">These combined structural flaws elevate transport costs in Ethiopia to over 22% of total goods costs—nearly double the global average—directly impacting national commerce and regional trade competitiveness.</p>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 3</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 4: OBJECTIVES & SOLUTIONS ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">3. Vision & Digital Solutions</div>
+            </div>
+
+            <div>
+                <div class="section-title">3. Strategic Objectives & Digital Solutions</div>
+                <div class="section-subtitle">Directly mapping traditional logistics challenges to digital software capabilities.</div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 45%;">Identified Problem</th>
+                            <th style="width: 55%;">HabeshaFreight Digital Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Informal Broker Exploitation:</strong> Excessive commissions, lack of formal contracts, unpredictable price hikes.</td>
+                            <td><strong style="color: var(--primary-blue);">Direct Digital Disintermediation:</strong> Open bidding marketplace connecting shippers directly to drivers with transparent pricing.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Empty Backhauls:</strong> High unladen return trips causing revenue loss and inflated transport pricing.</td>
+                            <td><strong style="color: var(--primary-blue);">Smart Backhaul Matching:</strong> Algorithmic route-based recommendations matching returning empty trucks with origin-bound loads.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cash Transaction Risks:</strong> Non-payment, delayed settlements, physical cash transport vulnerabilities.</td>
+                            <td><strong style="color: var(--primary-blue);">Digital Escrow & Local Gateways:</strong> Integration with Telebirr, Chapa, and ArifPay to lock funds securely prior to transit.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unverified Fleet Drivers:</strong> Cargo theft risks, invalid driving permits, fake license plates.</td>
+                            <td><strong style="color: var(--primary-blue);">KYC & Vehicle Verification:</strong> Mandatory driver identity checking, vehicle registration verification, and admin approval.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zero Transit Tracking:</strong> Complete lack of updates once the truck leaves the loading facility.</td>
+                            <td><strong style="color: var(--primary-blue);">End-to-End Milestone Tracking & OTP:</strong> Real-time status updates paired with secure 6-digit OTP verification at pickup & delivery.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 15px; text-align: center;">
+                    <h4 style="color: var(--secondary-blue); font-size: 10pt; margin-bottom: 8px;">Problem → HabeshaFreight Digital Transformation Flow</h4>
+                    <div class="card" style="background: var(--bg-card);">
+                        <svg width="100%" height="110" viewBox="0 0 460 110" fill="none">
+                            <rect x="10" y="20" width="120" height="70" rx="6" fill="#FFEBEE" stroke="#EF9A9A" />
+                            <text x="70" y="45" font-size="8.5" font-weight="bold" fill="#C62828" text-anchor="middle">Traditional Chaos</text>
+                            <text x="70" y="62" font-size="7" fill="#B71C1C" text-anchor="middle">Brokers • Cash Risk</text>
+                            <text x="70" y="74" font-size="7" fill="#B71C1C" text-anchor="middle">Empty Returns</text>
+
+                            <path d="M140 55 H190" stroke="#0052CC" stroke-width="2" marker-end="url(#arrow)" />
+
+                            <rect x="200" y="10" width="130" height="90" rx="8" fill="#E3F2FD" stroke="#90CAF9" />
+                            <text x="265" y="32" font-size="9" font-weight="bold" fill="#1565C0" text-anchor="middle">HabeshaFreight</text>
+                            <text x="265" y="48" font-size="7" fill="#0D47A1" text-anchor="middle">• Direct Bidding System</text>
+                            <text x="265" y="62" font-size="7" fill="#0D47A1" text-anchor="middle">• Secured Digital Escrow</text>
+                            <text x="265" y="76" font-size="7" fill="#0D47A1" text-anchor="middle">• OTP Handshake Security</text>
+
+                            <path d="M340 55 H390" stroke="#00875A" stroke-width="2" />
+
+                            <rect x="400" y="20" width="110" height="70" rx="6" fill="#E8F5E9" stroke="#A5D6A7" />
+                            <text x="455" y="45" font-size="8.5" font-weight="bold" fill="#2E7D32" text-anchor="middle">Optimized Outcome</text>
+                            <text x="455" y="62" font-size="7" fill="#1B5E20" text-anchor="middle">-30% Freight Cost</text>
+                            <text x="455" y="74" font-size="7" fill="#1B5E20" text-anchor="middle">100% Guaranteed Pay</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 4</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 5: PRODUCT OVERVIEW ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">4. Product Overview & Ecosystem</div>
+            </div>
+
+            <div>
+                <div class="section-title">4. Product Ecosystem & Stakeholders</div>
+                <div class="section-subtitle">Multi-sided platform architecture connecting four major operational actors.</div>
+
+                <div class="card" style="text-align: center; margin-bottom: 15px; padding: 15px;">
+                    <svg width="100%" height="160" viewBox="0 0 480 160" fill="none">
+                        <!-- Central Core -->
+                        <rect x="180" y="55" width="120" height="50" rx="8" fill="#0052CC" />
+                        <text x="240" y="78" font-size="10" font-weight="bold" fill="white" text-anchor="middle">HABESHAFREIGHT</text>
+                        <text x="240" y="92" font-size="7.5" fill="#B3D4FF" text-anchor="middle">CORE PLATFORM ENGINE</text>
+
+                        <!-- Shipper Node -->
+                        <rect x="20" y="10" width="110" height="40" rx="6" fill="#FAFBFC" stroke="#0052CC" stroke-width="1.5" />
+                        <text x="75" y="28" font-size="8.5" font-weight="bold" fill="#0052CC" text-anchor="middle">SHIPPER</text>
+                        <text x="75" y="40" font-size="6.5" fill="#5E6C84" text-anchor="middle">Cargo Owners / Enterprise</text>
+                        <line x1="130" y1="30" x2="180" y2="65" stroke="#0052CC" stroke-width="1.5" />
+
+                        <!-- Carrier Node -->
+                        <rect x="20" y="105" width="110" height="40" rx="6" fill="#FAFBFC" stroke="#00875A" stroke-width="1.5" />
+                        <text x="75" y="123" font-size="8.5" font-weight="bold" fill="#00875A" text-anchor="middle">DRIVER / CARRIER</text>
+                        <text x="75" y="135" font-size="6.5" fill="#5E6C84" text-anchor="middle">Independent Truck Drivers</text>
+                        <line x1="130" y1="125" x2="180" y2="95" stroke="#00875A" stroke-width="1.5" />
+
+                        <!-- Fleet Owner Node -->
+                        <rect x="350" y="10" width="110" height="40" rx="6" fill="#FAFBFC" stroke="#0747A6" stroke-width="1.5" />
+                        <text x="405" y="28" font-size="8.5" font-weight="bold" fill="#0747A6" text-anchor="middle">FLEET OWNER</text>
+                        <text x="405" y="40" font-size="6.5" fill="#5E6C84" text-anchor="middle">Transport Companies</text>
+                        <line x1="350" y1="30" x2="300" y2="65" stroke="#0747A6" stroke-width="1.5" />
+
+                        <!-- Administrator Node -->
+                        <rect x="350" y="105" width="110" height="40" rx="6" fill="#FAFBFC" stroke="#FFAB00" stroke-width="1.5" />
+                        <text x="405" y="123" font-size="8.5" font-weight="bold" fill="#D97000" text-anchor="middle">ADMINISTRATOR</text>
+                        <text x="405" y="135" font-size="6.5" fill="#5E6C84" text-anchor="middle">Platform Ops & Support</text>
+                        <line x1="350" y1="125" x2="300" y2="95" stroke="#FFAB00" stroke-width="1.5" />
+                    </svg>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="color: var(--primary-blue); font-size: 9pt;">Shippers</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Businesses, manufacturers, and individuals needing to transport freight across domestic corridors. Responsible for posting load specs, depositing escrow funds, and issuing delivery OTPs.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-green); font-size: 9pt;">Drivers & Carriers</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Licensed operators who browse available loads, submit competitive bids, execute cargo transit, collect pickup/delivery verification codes, and earn direct digital payouts.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--secondary-blue); font-size: 9pt;">Fleet Owners</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Logistics corporations managing multiple vehicles and employed drivers. They assign assigned drivers to accepted loads and oversee fleet performance analytics.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #D97000; font-size: 9pt;">Administrators</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Platform moderators responsible for KYC document verification, vehicle license approval, dispute mediation, payment escrow release overrides, and system auditing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 5</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 6: KEY FEATURES GRID ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">5. Core Feature Matrix</div>
+            </div>
+
+            <div>
+                <div class="section-title">5. Key Platform Features</div>
+                <div class="section-subtitle">20 Core capability modules powering the digital freight marketplace.</div>
+
+                <div class="grid-4" style="gap: 8px;">
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Security</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Authentication</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Phone + OTP login, password hashing & JWT management.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Security</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">RBAC Security</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Role-Based Access Enforcement (Shipper, Driver, Admin).</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Compliance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Driver KYC</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Driver license verification & identity validation.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Compliance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Vehicle Audit</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Logistics plate, vehicle type, and capacity checks.</p>
+                    </div>
+
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Operations</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Fleet Management</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Fleet owners manage multi-truck & multi-driver setups.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Operations</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Freight Posting</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Shipper creation of load specs, weight, and pricing.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Operations</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Load Discovery</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Real-time search and filter by corridor and weight.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Operations</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Geospatial Match</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">PostGIS spatial queries for nearby available loads.</p>
+                    </div>
+
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-gold">Marketplace</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Bidding System</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Competitive price bidding and counter-offers.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-gold">Marketplace</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Bid Selection</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Shipper evaluation and acceptance of carrier bids.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-gold">Marketplace</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Live Tracking</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Milestone-based progress update alerts.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-gold">Marketplace</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Pickup OTP</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Cryptographic 6-digit code verifying cargo loading.</p>
+                    </div>
+
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Trust</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Delivery OTP</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">6-digit code enabling final delivery confirmation.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Trust</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Digital Escrow</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Payment locking prior to driver dispatch.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Trust</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">SMS Alerts</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Push & SMS notifications for offline drivers.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-blue">Trust</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">In-App Messaging</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Direct chat between shipper and assigned driver.</p>
+                    </div>
+
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Governance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Dispute Mgmt</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Formal ticket creation for damaged or missing loads.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Governance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Rating & Reviews</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">5-star mutual rating system post-delivery.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Governance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Admin Portal</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Central dashboard for platform monitoring.</p>
+                    </div>
+                    <div class="card" style="padding: 8px;">
+                        <span class="badge badge-green">Governance</span>
+                        <h4 style="font-size: 8pt; margin-top: 4px;">Audit Trail</h4>
+                        <p style="font-size: 7pt; color: var(--text-muted);">Immutable logging of financial & status events.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 6</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 7: ACTORS & USE CASE MAP ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">6. Actors & System Boundary</div>
+            </div>
+
+            <div>
+                <div class="section-title">6. System Actors & External Interfaces</div>
+                <div class="section-subtitle">Detailed categorization of internal platform actors and third-party integrations.</div>
+
+                <div class="grid-2" style="margin-bottom: 12px;">
+                    <div class="card">
+                        <h3 style="font-size: 10pt; color: var(--primary-blue); margin-bottom: 6px;">Primary Human Actors</h3>
+                        <ul style="font-size: 8pt; color: var(--text-dark); line-height: 1.6; margin-left: 14px;">
+                            <li><strong>Shipper:</strong> Creates freight posts, evaluates carrier bids, funds escrow, generates OTPs, and rates service.</li>
+                            <li><strong>Driver / Carrier:</strong> Searches corridor loads, places bids, inputs OTPs at milestones, updates transit states.</li>
+                            <li><strong>Fleet Owner:</strong> Manages registered vehicles, hires drivers, monitors multi-vehicle load fulfillment.</li>
+                            <li><strong>System Administrator:</strong> Performs user KYC approval, resolves disputed escrows, monitors platform logs.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-size: 10pt; color: var(--accent-green); margin-bottom: 6px;">External System Interfaces</h3>
+                        <ul style="font-size: 8pt; color: var(--text-dark); line-height: 1.6; margin-left: 14px;">
+                            <li><strong>Payment Gateways (Telebirr, Chapa, ArifPay):</strong> Secure checkout, escrow hold, and automated driver payout.</li>
+                            <li><strong>SMS Gateway (AfricasTalking / Ethio Telecom):</strong> Instant SMS delivery for OTPs and status alerts.</li>
+                            <li><strong>Mapping Services (Mapbox / OpenStreetMap):</strong> Corridor route rendering, distance calculations.</li>
+                            <li><strong>Cloud Storage (AWS S3 / Cloudinary):</strong> Secure document storage for driver licenses & truck photos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--secondary-blue); font-size: 10pt; margin-bottom: 6px;">Use Case Relationship Boundary</h3>
+                <div class="card" style="text-align: center; padding: 10px;">
+                    <svg width="100%" height="160" viewBox="0 0 460 160" fill="none">
+                        <!-- Box Boundary -->
+                        <rect x="100" y="5" width="260" height="150" rx="8" fill="#FAFBFC" stroke="#0052CC" stroke-dasharray="3 3" />
+                        <text x="230" y="20" font-size="8" font-weight="bold" fill="#0052CC" text-anchor="middle">HabeshaFreight System Boundary</text>
+
+                        <!-- Use Cases -->
+                        <ellipse cx="180" cy="45" rx="50" ry="14" fill="#E3F2FD" stroke="#1565C0" />
+                        <text x="180" y="48" font-size="7" fill="#1565C0" text-anchor="middle">Post Freight Load</text>
+
+                        <ellipse cx="280" cy="45" rx="50" ry="14" fill="#E3F2FD" stroke="#1565C0" />
+                        <text x="280" y="48" font-size="7" fill="#1565C0" text-anchor="middle">Submit Carrier Bid</text>
+
+                        <ellipse cx="180" cy="85" rx="50" ry="14" fill="#E8F5E9" stroke="#2E7D32" />
+                        <text x="180" y="88" font-size="7" fill="#2E7D32" text-anchor="middle">Lock Escrow Payment</text>
+
+                        <ellipse cx="280" cy="85" rx="50" ry="14" fill="#E8F5E9" stroke="#2E7D32" />
+                        <text x="280" y="88" font-size="7" fill="#2E7D32" text-anchor="middle">Verify Pickup/Delivery OTP</text>
+
+                        <ellipse cx="230" cy="125" rx="55" ry="14" fill="#FFF8E1" stroke="#F57F17" />
+                        <text x="230" y="128" font-size="7" fill="#F57F17" text-anchor="middle">Arbitrate Dispute Ticket</text>
+
+                        <!-- External Actors Lines -->
+                        <circle cx="40" cy="50" r="12" fill="#0052CC" />
+                        <text x="40" y="75" font-size="7.5" font-weight="bold" fill="#091E42" text-anchor="middle">Shipper</text>
+                        <line x1="52" y1="50" x2="130" y2="45" stroke="#0052CC" />
+                        <line x1="52" y1="50" x2="130" y2="85" stroke="#0052CC" />
+
+                        <circle cx="420" cy="50" r="12" fill="#00875A" />
+                        <text x="420" y="75" font-size="7.5" font-weight="bold" fill="#091E42" text-anchor="middle">Driver</text>
+                        <line x1="408" y1="50" x2="330" y2="45" stroke="#00875A" />
+                        <line x1="408" y1="50" x2="330" y2="85" stroke="#00875A" />
+
+                        <circle cx="420" cy="125" r="12" fill="#FFAB00" />
+                        <text x="420" y="150" font-size="7.5" font-weight="bold" fill="#091E42" text-anchor="middle">Admin</text>
+                        <line x1="408" y1="125" x2="285" y2="125" stroke="#FFAB00" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 7</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 8: SYSTEM LIMITATIONS & SCOPE ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">7. Scope & Boundaries</div>
+            </div>
+
+            <div>
+                <div class="section-title">7. Limitations & Scope Boundaries</div>
+                <div class="section-subtitle">Explicit constraints governing Phase 1 initial deployment and future roadmap expansion.</div>
+
+                <div class="grid-2">
+                    <div class="card" style="background: #FFF5F5; border-color: #FEB2B2;">
+                        <h3 style="color: #C53030; font-size: 10pt; margin-bottom: 8px;">Phase 1 Current Limitations</h3>
+                        <ul style="font-size: 7.5pt; color: #742A2A; line-height: 1.6; margin-left: 14px;">
+                            <li><strong>Domestic Scope Only:</strong> Restricted exclusively to core Ethiopian primary transportation corridors.</li>
+                            <li><strong>Single Currency:</strong> Financial operations processed strictly in Ethiopian Birr (ETB).</li>
+                            <li><strong>Manual Telemetry:</strong> No dedicated IoT GPS hardware installed on trucks; milestone location updates rely on driver mobile interactions.</li>
+                            <li><strong>Rule-Based Matching:</strong> Static location and route sorting rather than AI-driven predictive pricing algorithms.</li>
+                            <li><strong>Connectivity Dependency:</strong> Intermittent cellular connectivity in rural regions may delay real-time updates.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="background: #F0FFF4; border-color: #9AE6B4;">
+                        <h3 style="color: #22543D; font-size: 10pt; margin-bottom: 8px;">Future Roadmap Expansion</h3>
+                        <ul style="font-size: 7.5pt; color: #1C4532; line-height: 1.6; margin-left: 14px;">
+                            <li><strong>Djibouti Trade Corridor:</strong> Expansion into cross-border customs integration and multi-currency clearing (USD/ETB).</li>
+                            <li><strong>Hardwired IoT Telematics:</strong> Direct integration with vehicle OBD-II ports for continuous GPS and speed tracking.</li>
+                            <li><strong>AI Dynamic Pricing Engine:</strong> Machine learning algorithms suggesting real-time optimal freight rates based on seasonal demand.</li>
+                            <li><strong>Localization Expansion:</strong> Native UI support for Amharic, Afaan Oromo, and Tigrinya languages.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 15px;">
+                    <h4 style="font-size: 9pt; color: var(--primary-blue);">Technical Feasibility Justification</h4>
+                    <p style="font-size: 8pt; color: var(--text-dark);">
+                        By bounding Phase 1 scope to domestic corridors and mobile-first OTP validation, HabeshaFreight minimizes hardware deployment capital while solving the primary pain points of driver verification and payment security.
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 8</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 9: METHODOLOGY ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">8. Methodology</div>
+            </div>
+
+            <div>
+                <div class="section-title">8. Software Engineering Methodology</div>
+                <div class="section-subtitle">Iterative Agile development lifecycle ensuring rapid feedback and incremental stability.</div>
+
+                <div class="card" style="margin-bottom: 12px; text-align: center; padding: 12px;">
+                    <svg width="100%" height="100" viewBox="0 0 460 100" fill="none">
+                        <circle cx="50" cy="50" r="30" fill="#E3F2FD" stroke="#0052CC" stroke-width="2" />
+                        <text x="50" y="53" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">1. Requirements</text>
+
+                        <path d="M85 50 H115" stroke="#0052CC" stroke-width="2" />
+
+                        <circle cx="150" cy="50" r="30" fill="#E3F2FD" stroke="#0052CC" stroke-width="2" />
+                        <text x="150" y="53" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">2. Design</text>
+
+                        <path d="M185 50 H215" stroke="#0052CC" stroke-width="2" />
+
+                        <circle cx="250" cy="50" r="30" fill="#E8F5E9" stroke="#00875A" stroke-width="2" />
+                        <text x="250" y="53" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">3. Sprint Dev</text>
+
+                        <path d="M285 50 H315" stroke="#00875A" stroke-width="2" />
+
+                        <circle cx="350" cy="50" r="30" fill="#E8F5E9" stroke="#00875A" stroke-width="2" />
+                        <text x="350" y="53" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">4. Testing</text>
+
+                        <path d="M385 50 H415" stroke="#00875A" stroke-width="2" />
+
+                        <circle cx="430" cy="50" r="22" fill="#FFF8E1" stroke="#FFAB00" stroke-width="2" />
+                        <text x="430" y="53" font-size="7" font-weight="bold" fill="#D97000" text-anchor="middle">5. Deploy</text>
+                    </svg>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--primary-blue);">Sprint Planning & Increments</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">Development was structured into 2-week Agile sprints focusing on core domain modules (Auth → Freight → Bidding → Escrow → OTP Verification).</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--accent-green);">Continuous Integration</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">Automated Docker builds and test scripts run on code check-in to ensure stability across API endpoints and database migrations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 9</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 10: FUNCTIONAL REQUIREMENTS I ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">9. Functional Requirements (Part 1)</div>
+            </div>
+
+            <div>
+                <div class="section-title">9. Functional Requirements (FR-01 to FR-10)</div>
+                <div class="section-subtitle">Specific system behavior rules governing authentication, vehicle management, and bidding.</div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 12%;">Req ID</th>
+                            <th style="width: 25%;">Module Name</th>
+                            <th style="width: 63%;">Requirement Functional Specification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FR-01</strong></td>
+                            <td>User Registration</td>
+                            <td>System shall allow Shippers, Drivers, and Fleet Owners to register using a unique Ethiopian mobile phone number (+251).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-02</strong></td>
+                            <td>OTP Auth</td>
+                            <td>System shall verify phone ownership during signup/login via a 6-digit SMS OTP code expiring within 5 minutes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-03</strong></td>
+                            <td>Session Control</td>
+                            <td>System shall issue secure JSON Web Tokens (JWT) containing encrypted role claims upon successful login.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-04</strong></td>
+                            <td>KYC Verification</td>
+                            <td>System shall enforce admin document approval for driver licenses and commercial transport permits before allowing bidding.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-05</strong></td>
+                            <td>RBAC Access</td>
+                            <td>System shall restrict API endpoint execution strictly according to defined user roles (Shipper vs. Driver vs. Admin).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-06</strong></td>
+                            <td>Vehicle Profile</td>
+                            <td>System shall allow Drivers and Fleet Owners to register truck plate numbers, load capacity (tons), and body type (Dry/Reefer).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-07</strong></td>
+                            <td>Driver Mapping</td>
+                            <td>System shall enable Fleet Owners to assign specific verified drivers to registered company vehicles.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-08</strong></td>
+                            <td>Freight Creation</td>
+                            <td>System shall allow Shippers to create freight listings detailing origin, destination, cargo type, weight, and target price.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-09</strong></td>
+                            <td>Load Search</td>
+                            <td>System shall allow verified Drivers to search available loads by corridor, minimum price, and maximum weight capacity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-10</strong></td>
+                            <td>Carrier Bidding</td>
+                            <td>System shall allow Drivers/Fleet Owners to submit numeric monetary bids on posted freight listings.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 10</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 11: FUNCTIONAL REQUIREMENTS II ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">9. Functional Requirements (Part 2)</div>
+            </div>
+
+            <div>
+                <div class="section-title">9. Functional Requirements (FR-11 to FR-20)</div>
+                <div class="section-subtitle">Requirements governing escrow locking, OTP delivery verification, and disputes.</div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 12%;">Req ID</th>
+                            <th style="width: 25%;">Module Name</th>
+                            <th style="width: 63%;">Requirement Functional Specification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FR-11</strong></td>
+                            <td>Bid Acceptance</td>
+                            <td>System shall allow Shippers to review carrier bids and accept a single winning carrier, locking the transaction state.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-12</strong></td>
+                            <td>Escrow Deposit</td>
+                            <td>System shall require the Shipper to deposit total freight funds into the payment gateway escrow account before transit starts.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-13</strong></td>
+                            <td>Pickup OTP Generation</td>
+                            <td>System shall automatically generate a secure 6-digit Pickup OTP sent exclusively to the Shipper upon escrow lock.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-14</strong></td>
+                            <td>Pickup Handshake</td>
+                            <td>Driver shall enter the Shipper's Pickup OTP at cargo loading location; system unlocks state to "IN_TRANSIT".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-15</strong></td>
+                            <td>Delivery OTP Generation</td>
+                            <td>System shall send a 6-digit Delivery OTP to the designated recipient upon driver arrival at the destination node.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-16</strong></td>
+                            <td>Delivery Verification</td>
+                            <td>Driver shall input Delivery OTP provided by recipient to instantly trigger automated escrow release to driver wallet.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-17</strong></td>
+                            <td>Messaging</td>
+                            <td>System shall provide a real-time, order-scoped chat interface for assigned drivers and shippers during transit.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-18</strong></td>
+                            <td>Dispute Logging</td>
+                            <td>System shall allow either party to flag a shipment as "DISPUTED", freezing escrow funds pending admin intervention.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-19</strong></td>
+                            <td>Mutual Ratings</td>
+                            <td>System shall prompt both Shipper and Driver to complete a 1-5 star rating and text review after delivery.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FR-20</strong></td>
+                            <td>Audit Logging</td>
+                            <td>System shall write an immutable log entry for all financial transactions, status shifts, and admin override actions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 11</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 12: SHIPMENT LIFECYCLE ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">10. State Machine Architecture</div>
+            </div>
+
+            <div>
+                <div class="section-title">10. Detailed Shipment Lifecycle & State Machine</div>
+                <div class="section-subtitle">Formal state transitions enforcing operational checkpoints throughout the transport process.</div>
+
+                <div class="card" style="padding: 15px; margin-bottom: 15px;">
+                    <svg width="100%" height="220" viewBox="0 0 460 220" fill="none">
+                        <!-- Normal Lifecycle Path -->
+                        <rect x="10" y="20" width="80" height="35" rx="5" fill="#E3F2FD" stroke="#0052CC" />
+                        <text x="50" y="40" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">POSTED</text>
+
+                        <line x1="90" y1="37" x2="120" y2="37" stroke="#0052CC" stroke-width="1.5" />
+
+                        <rect x="120" y="20" width="80" height="35" rx="5" fill="#E3F2FD" stroke="#0052CC" />
+                        <text x="160" y="40" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">BID_ACCEPTED</text>
+
+                        <line x1="200" y1="37" x2="230" y2="37" stroke="#0052CC" stroke-width="1.5" />
+
+                        <rect x="230" y="20" width="90" height="35" rx="5" fill="#FFF8E1" stroke="#FFAB00" stroke-width="2" />
+                        <text x="275" y="40" font-size="7.5" font-weight="bold" fill="#D97000" text-anchor="middle">ESCROW_LOCKED</text>
+
+                        <line x1="320" y1="37" x2="350" y2="37" stroke="#00875A" stroke-width="1.5" />
+
+                        <rect x="350" y="20" width="90" height="35" rx="5" fill="#E8F5E9" stroke="#00875A" />
+                        <text x="395" y="35" font-size="7" font-weight="bold" fill="#00875A" text-anchor="middle">PICKUP_VERIFIED</text>
+                        <text x="395" y="46" font-size="6" fill="#2E7D32" text-anchor="middle">(Via Pickup OTP)</text>
+
+                        <!-- Second Row Path -->
+                        <line x1="395" y1="55" x2="395" y2="90" stroke="#00875A" stroke-width="1.5" />
+
+                        <rect x="350" y="90" width="90" height="35" rx="5" fill="#E8F5E9" stroke="#00875A" />
+                        <text x="395" y="110" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">IN_TRANSIT</text>
+
+                        <line x1="350" y1="107" x2="320" y2="107" stroke="#00875A" stroke-width="1.5" />
+
+                        <rect x="230" y="90" width="90" height="35" rx="5" fill="#E8F5E9" stroke="#00875A" stroke-width="2" />
+                        <text x="275" y="105" font-size="7" font-weight="bold" fill="#00875A" text-anchor="middle">DELIVERY_VERIFIED</text>
+                        <text x="275" y="116" font-size="6" fill="#2E7D32" text-anchor="middle">(Via Delivery OTP)</text>
+
+                        <line x1="230" y1="107" x2="200" y2="107" stroke="#00875A" stroke-width="1.5" />
+
+                        <rect x="110" y="90" width="90" height="35" rx="5" fill="#E8F5E9" stroke="#00875A" />
+                        <text x="155" y="110" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">COMPLETED</text>
+
+                        <!-- Exception States -->
+                        <rect x="50" y="160" width="80" height="35" rx="5" fill="#FFEBEE" stroke="#D32F2F" />
+                        <text x="90" y="180" font-size="7.5" font-weight="bold" fill="#D32F2F" text-anchor="middle">CANCELLED</text>
+
+                        <rect x="230" y="160" width="90" height="35" rx="5" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2" />
+                        <text x="275" y="180" font-size="7.5" font-weight="bold" fill="#D32F2F" text-anchor="middle">DISPUTED</text>
+
+                        <path d="M50" y1="55" x2="50" y2="160" stroke="#D32F2F" stroke-dasharray="2 2" />
+                        <path d="M275" y1="125" x2="275" y2="160" stroke="#D32F2F" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--accent-green);">The OTP Handshake Protocol</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Two-factor cryptographic verification eliminates pickup and delivery fraud. Drivers cannot claim cargo loaded or delivered without physical possession of the recipient's secure OTP.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: #D32F2F;">Dispute Resolution Pathway</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Triggering a dispute freezes the escrow account. Administrators review uploaded bill of lading documents and messaging logs before executing a partial or complete refund.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 12</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 13: BUSINESS RULES ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">11. Business Rules</div>
+            </div>
+
+            <div>
+                <div class="section-title">11. Key Business Rules (BR-01 to BR-05)</div>
+                <div class="section-subtitle">Strict domain invariants enforced programmatically by the core system engine.</div>
+
+                <div class="grid-1" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="card" style="border-left: 4px solid var(--primary-blue);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 style="font-size: 9.5pt; color: var(--primary-blue);">BR-01: Vehicle Capacity Enforcement</h3>
+                            <span class="badge badge-blue">Safety Invariant</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-top: 4px;">
+                            A driver cannot submit a bid on a freight listing whose specified weight exceeds the verified maximum payload capacity of the assigned vehicle.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--gold-accent);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 style="font-size: 9.5pt; color: #D97000;">BR-02: Escrow Mandatory Before Transit</h3>
+                            <span class="badge badge-gold">Financial Invariant</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-top: 4px;">
+                            The system shall refuse to issue a Pickup OTP or allow driver dispatch until 100% of the agreed freight price is locked in the digital escrow service.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--accent-green);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 style="font-size: 9.5pt; color: var(--accent-green);">BR-03: OTP Handshake Requirement</h3>
+                            <span class="badge badge-green">Security Invariant</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-top: 4px;">
+                            Escrow funds cannot be released to the driver's payout account under normal operational flows without successful entry of the recipient's Delivery OTP.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--secondary-blue);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 style="font-size: 9.5pt; color: var(--secondary-blue);">BR-04: Single Active Assignment</h3>
+                            <span class="badge badge-blue">Operational Invariant</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-top: 4px;">
+                            A vehicle or driver can only be assigned to one active shipment state (IN_TRANSIT) at any given time to ensure accurate availability tracking.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid #7B1FA2;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 style="font-size: 9.5pt; color: #7B1FA2;">BR-05: Review Qualification</h3>
+                            <span class="badge badge-gold">Trust Invariant</span>
+                        </div>
+                        <p style="font-size: 8pt; color: var(--text-dark); margin-top: 4px;">
+                            Users may only submit ratings and reviews for transactions that have formally reached the "COMPLETED" state.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 13</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 14: NON-FUNCTIONAL REQUIREMENTS ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">12. Quality Attributes</div>
+            </div>
+
+            <div>
+                <div class="section-title">12. Non-Functional Requirements</div>
+                <div class="section-subtitle">System performance, security, availability, and usability parameters.</div>
+
+                <div class="grid-2" style="gap: 12px;">
+                    <div class="card">
+                        <h3 style="font-size: 9.5pt; color: var(--primary-blue); margin-bottom: 4px;">Performance & Latency</h3>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-left: 14px;">
+                            <li>API response times < 200ms for 95% of requests.</li>
+                            <li>Geospatial load matching queries < 500ms using PostGIS spatial indexing.</li>
+                            <li>SMS OTP generation and dispatch within 5 seconds.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-size: 9.5pt; color: var(--accent-green); margin-bottom: 4px;">Security & Encryption</h3>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-left: 14px;">
+                            <li>HTTPS/TLS 1.3 enforced for all network communications.</li>
+                            <li>Passwords hashed using Argon2id algorithm.</li>
+                            <li>JWT access tokens with short lifespan (15 minutes) + secure refresh cookies.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-size: 9.5pt; color: var(--secondary-blue); margin-bottom: 4px;">Availability & Reliability</h3>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-left: 14px;">
+                            <li>Target system availability of 99.9% uptime.</li>
+                            <li>Automated daily database backups with point-in-time recovery.</li>
+                            <li>Graceful offline mobile queueing during regional cellular dead zones.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-size: 9.5pt; color: #D97000; margin-bottom: 4px;">Bandwidth & Digital Literacy</h3>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-left: 14px;">
+                            <li>Mobile App payload < 15MB total bundle size.</li>
+                            <li>High-contrast light UI optimized for direct sunlight viewing.</li>
+                            <li>Icon-driven UI navigation supporting low digital literacy users.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 14</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 15: SYSTEM ARCHITECTURE ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">13. Architectural Design</div>
+            </div>
+
+            <div>
+                <div class="section-title">13. Layered System Architecture</div>
+                <div class="section-subtitle">High-level software architecture and sub-system communication layers.</div>
+
+                <div class="card" style="padding: 15px; margin-bottom: 12px; text-align: center;">
+                    <svg width="100%" height="220" viewBox="0 0 460 220" fill="none">
+                        <!-- Presentation Layer -->
+                        <rect x="20" y="10" width="420" height="35" rx="6" fill="#E3F2FD" stroke="#0052CC" />
+                        <text x="230" y="25" font-size="8.5" font-weight="bold" fill="#0052CC" text-anchor="middle">PRESENTATION LAYER</text>
+                        <text x="230" y="38" font-size="7" fill="#1565C0" text-anchor="middle">React/Next.js Web Portal • Flutter Driver Mobile App • Admin Dashboard</text>
+
+                        <line x1="230" y1="45" x2="230" y2="60" stroke="#0052CC" stroke-width="2" />
+
+                        <!-- API Gateway / REST Layer -->
+                        <rect x="20" y="60" width="420" height="35" rx="6" fill="#E8F5E9" stroke="#00875A" />
+                        <text x="230" y="75" font-size="8.5" font-weight="bold" fill="#00875A" text-anchor="middle">API & SECURITY LAYER</text>
+                        <text x="230" y="88" font-size="7" fill="#2E7D32" text-anchor="middle">Express API Gateway • JWT Middleware • Rate Limiting • Input Validation</text>
+
+                        <line x1="230" y1="95" x2="230" y2="110" stroke="#00875A" stroke-width="2" />
+
+                        <!-- Application Logic Layer -->
+                        <rect x="20" y="110" width="420" height="40" rx="6" fill="#FFF8E1" stroke="#FFAB00" />
+                        <text x="230" y="125" font-size="8.5" font-weight="bold" fill="#D97000" text-anchor="middle">APPLICATION SERVICES LAYER</text>
+                        <text x="230" y="138" font-size="7" fill="#F57F17" text-anchor="middle">Freight Module • Bidding Engine • Escrow Controller • OTP Service • Messaging Engine</text>
+
+                        <line x1="150" y1="150" x2="150" y2="165" stroke="#FFAB00" stroke-width="2" />
+                        <line x1="310" y1="150" x2="310" y2="165" stroke="#FFAB00" stroke-width="2" />
+
+                        <!-- Data Layer & External Integration -->
+                        <rect x="20" y="165" width="200" height="40" rx="6" fill="#FAFBFC" stroke="#5E6C84" />
+                        <text x="120" y="182" font-size="8" font-weight="bold" fill="#091E42" text-anchor="middle">DATA STORAGE</text>
+                        <text x="120" y="195" font-size="6.5" fill="#5E6C84" text-anchor="middle">PostgreSQL + PostGIS • Redis Cache</text>
+
+                        <rect x="240" y="165" width="200" height="40" rx="6" fill="#FAFBFC" stroke="#5E6C84" />
+                        <text x="340" y="182" font-size="8" font-weight="bold" fill="#091E42" text-anchor="middle">EXTERNAL SERVICES</text>
+                        <text x="340" y="195" font-size="6.5" fill="#5E6C84" text-anchor="middle">Telebirr / Chapa • SMS Gateway • Maps API</text>
+                    </svg>
+                </div>
+
+                <p style="font-size: 8pt; color: var(--text-dark);">
+                    The decoupled layered architecture allows individual sub-systems (such as the Bidding Engine or Escrow Controller) to scale independently while maintaining strict domain boundaries.
+                </p>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 15</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 16: UML CLASS DIAGRAM ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">14. Data Model UML</div>
+            </div>
+
+            <div>
+                <div class="section-title">14. Complete UML Class Diagram</div>
+                <div class="section-subtitle">Domain entities, primary attributes, and relational associations.</div>
+
+                <div class="card" style="padding: 10px; margin-bottom: 10px;">
+                    <svg width="100%" height="240" viewBox="0 0 460 240" fill="none">
+                        <!-- User Class -->
+                        <rect x="10" y="10" width="100" height="70" rx="4" fill="white" stroke="#0052CC" />
+                        <path d="M10 25 H110" stroke="#0052CC" />
+                        <text x="60" y="20" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">User</text>
+                        <text x="15" y="36" font-size="6" fill="#091E42">+ userId: UUID</text>
+                        <text x="15" y="46" font-size="6" fill="#091E42">+ phone: String</text>
+                        <text x="15" y="56" font-size="6" fill="#091E42">+ role: RoleEnum</text>
+                        <text x="15" y="66" font-size="6" fill="#091E42">+ isVerified: Boolean</text>
+
+                        <!-- FleetOwner Class -->
+                        <rect x="130" y="10" width="100" height="60" rx="4" fill="white" stroke="#0052CC" />
+                        <path d="M130 25 H230" stroke="#0052CC" />
+                        <text x="180" y="20" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">FleetOwner</text>
+                        <text x="135" y="36" font-size="6" fill="#091E42">+ fleetOwnerId: UUID</text>
+                        <text x="135" y="46" font-size="6" fill="#091E42">+ companyName: String</text>
+                        <text x="135" y="56" font-size="6" fill="#091E42">+ taxId: String</text>
+
+                        <!-- Vehicle Class -->
+                        <rect x="250" y="10" width="100" height="70" rx="4" fill="white" stroke="#0052CC" />
+                        <path d="M250 25 H350" stroke="#0052CC" />
+                        <text x="300" y="20" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">Vehicle</text>
+                        <text x="255" y="36" font-size="6" fill="#091E42">+ vehicleId: UUID</text>
+                        <text x="255" y="46" font-size="6" fill="#091E42">+ plateNumber: String</text>
+                        <text x="255" y="56" font-size="6" fill="#091E42">+ capacityTons: Float</text>
+                        <text x="255" y="66" font-size="6" fill="#091E42">+ vehicleType: String</text>
+
+                        <!-- Relationships Top -->
+                        <line x1="110" y1="35" x2="130" y2="35" stroke="#0052CC" />
+                        <text x="115" y="30" font-size="6" fill="#5E6C84">1..1</text>
+
+                        <line x1="230" y1="35" x2="250" y2="35" stroke="#0052CC" />
+                        <text x="235" y="30" font-size="6" fill="#5E6C84">1..*</text>
+
+                        <!-- Shipment Class -->
+                        <rect x="10" y="110" width="110" height="85" rx="4" fill="white" stroke="#00875A" stroke-width="1.5" />
+                        <path d="M10 125 H120" stroke="#00875A" />
+                        <text x="65" y="120" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">Shipment</text>
+                        <text x="15" y="136" font-size="6" fill="#091E42">+ shipmentId: UUID</text>
+                        <text x="15" y="146" font-size="6" fill="#091E42">+ origin: Point</text>
+                        <text x="15" y="156" font-size="6" fill="#091E42">+ destination: Point</text>
+                        <text x="15" y="166" font-size="6" fill="#091E42">+ weight: Float</text>
+                        <text x="15" y="176" font-size="6" fill="#091E42">+ status: StatusEnum</text>
+                        <text x="15" y="186" font-size="6" fill="#091E42">+ price: Decimal</text>
+
+                        <!-- Bid Class -->
+                        <rect x="140" y="110" width="90" height="60" rx="4" fill="white" stroke="#00875A" />
+                        <path d="M140 125 H230" stroke="#00875A" />
+                        <text x="185" y="120" font-size="7.5" font-weight="bold" fill="#00875A" text-anchor="middle">Bid</text>
+                        <text x="145" y="136" font-size="6" fill="#091E42">+ bidId: UUID</text>
+                        <text x="145" y="146" font-size="6" fill="#091E42">+ amount: Decimal</text>
+                        <text x="145" y="156" font-size="6" fill="#091E42">+ status: BidStatus</text>
+
+                        <!-- Escrow Class -->
+                        <rect x="250" y="110" width="90" height="60" rx="4" fill="white" stroke="#FFAB00" />
+                        <path d="M250 125 H340" stroke="#FFAB00" />
+                        <text x="295" y="120" font-size="7.5" font-weight="bold" fill="#D97000" text-anchor="middle">Escrow</text>
+                        <text x="255" y="136" font-size="6" fill="#091E42">+ escrowId: UUID</text>
+                        <text x="255" y="146" font-size="6" fill="#091E42">+ amount: Decimal</text>
+                        <text x="255" y="156" font-size="6" fill="#091E42">+ status: EscrowState</text>
+
+                        <!-- Relationships Middle -->
+                        <line x1="60" y1="80" x2="60" y2="110" stroke="#0052CC" />
+                        <text x="65" y="95" font-size="6" fill="#5E6C84">1..*</text>
+
+                        <line x1="120" y1="135" x2="140" y2="135" stroke="#00875A" />
+                        <text x="125" y="130" font-size="6" fill="#5E6C84">1..*</text>
+
+                        <line x1="120" y1="155" x2="250" y2="155" stroke="#FFAB00" />
+                        <text x="235" y="150" font-size="6" fill="#5E6C84">1..1</text>
+
+                        <!-- Review & Dispute -->
+                        <rect x="360" y="110" width="90" height="50" rx="4" fill="white" stroke="#7B1FA2" />
+                        <path d="M360 125 H450" stroke="#7B1FA2" />
+                        <text x="405" y="120" font-size="7.5" font-weight="bold" fill="#7B1FA2" text-anchor="middle">Review</text>
+                        <text x="365" y="136" font-size="6" fill="#091E42">+ rating: Int</text>
+                        <text x="365" y="146" font-size="6" fill="#091E42">+ comment: String</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 16</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 17: TECHNOLOGIES USED ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">15. Technology Stack</div>
+            </div>
+
+            <div>
+                <div class="section-title">15. Complete Technology Stack</div>
+                <div class="section-subtitle">Production-grade frameworks and libraries driving system execution.</div>
+
+                <div class="grid-3" style="gap: 10px;">
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--primary-blue);">Frontend Stack</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>React / Next.js:</strong> SSR Web Application</li>
+                            <li><strong>TypeScript:</strong> Type safety</li>
+                            <li><strong>Tailwind CSS:</strong> Utility-first styling</li>
+                            <li><strong>Lucide Icons:</strong> Interface icons</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--accent-green);">Mobile Stack</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>Flutter / Dart:</strong> Cross-platform native mobile</li>
+                            <li><strong>Bloc / Provider:</strong> State management</li>
+                            <li><strong>Background Locator:</strong> Offline GPS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--secondary-blue);">Backend Stack</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>Node.js / Express:</strong> RESTful API server</li>
+                            <li><strong>Prisma ORM:</strong> Database access layer</li>
+                            <li><strong>JWT & Argon2:</strong> Authentication</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: #D97000;">Database & Cache</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>PostgreSQL:</strong> Relational data engine</li>
+                            <li><strong>PostGIS:</strong> Spatial location indexing</li>
+                            <li><strong>Redis:</strong> Session & caching layer</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: #7B1FA2;">DevOps & Infra</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>Docker:</strong> Containerized deployment</li>
+                            <li><strong>Nginx:</strong> Reverse proxy</li>
+                            <li><strong>GitHub Actions:</strong> CI/CD automation</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: #C2185B;">Local Integrations</h4>
+                        <ul style="font-size: 7.5pt; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+                            <li><strong>Telebirr API:</strong> Mobile payment API</li>
+                            <li><strong>Chapa API:</strong> Bank payment aggregator</li>
+                            <li><strong>Ethio Telecom SMS:</strong> SMS dispatch</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 17</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 18: UI MOCKUPS - SHIPPER ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">16. UI - Shipper Portal</div>
+            </div>
+
+            <div>
+                <div class="section-title">16. User Interface: Shipper Web Portal</div>
+                <div class="section-subtitle">Conceptual UI mockups for load posting and bid evaluation.</div>
+
+                <div class="card" style="background: white; border-color: var(--primary-blue); padding: 12px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; margin-bottom: 8px;">
+                        <span style="font-weight: bold; font-size: 9pt; color: var(--primary-blue);">Post New Freight Load</span>
+                        <span class="badge badge-blue">Shipper Dashboard</span>
+                    </div>
+
+                    <div class="grid-2" style="gap: 8px; font-size: 7.5pt;">
+                        <div>
+                            <label style="color: var(--text-muted); display: block;">Origin Corridor Node</label>
+                            <input type="text" value="Addis Ababa (Kality Terminal)" style="width: 100%; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" readonly />
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); display: block;">Destination Node</label>
+                            <input type="text" value="Adama Logistics Hub" style="width: 100%; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" readonly />
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); display: block;">Cargo Type & Category</label>
+                            <input type="text" value="Agricultural - Teff Bagged Cargo" style="width: 100%; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" readonly />
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); display: block;">Weight (Metric Tons)</label>
+                            <input type="text" value="24.5 Tons" style="width: 100%; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" readonly />
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 10px; text-align: right;">
+                        <button style="background: var(--primary-blue); color: white; border: none; padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 7.5pt;">Post Freight Load →</button>
+                    </div>
+                </div>
+
+                <div class="card" style="background: white;">
+                    <div style="font-weight: bold; font-size: 8.5pt; margin-bottom: 6px; color: var(--secondary-blue);">Active Bids Received for Load #HF-8821</div>
+                    <table style="font-size: 7.5pt;">
+                        <thead>
+                            <tr>
+                                <th>Driver / Fleet Owner</th>
+                                <th>Vehicle Plate</th>
+                                <th>Bid Amount</th>
+                                <th>Rating</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Abebe Kebede (Independent)</td>
+                                <td>ET-3-44120</td>
+                                <td><strong>18,500 ETB</strong></td>
+                                <td>4.9 ★</td>
+                                <td><button style="background: var(--accent-green); color: white; border: none; padding: 2px 8px; border-radius: 3px; font-size: 7pt;">Accept Bid</button></td>
+                            </tr>
+                            <tr>
+                                <td>Mulugeta Fleet Ops</td>
+                                <td>ET-3-99182</td>
+                                <td><strong>19,200 ETB</strong></td>
+                                <td>4.7 ★</td>
+                                <td><button style="background: var(--bg-light); color: var(--text-dark); border: 1px solid var(--border-color); padding: 2px 8px; border-radius: 3px; font-size: 7pt;">Decline</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 18</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 19: UI MOCKUPS - DRIVER ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">17. UI - Driver Mobile App</div>
+            </div>
+
+            <div>
+                <div class="section-title">17. User Interface: Driver Mobile Interface</div>
+                <div class="section-subtitle">Mobile-first touch interface designed for high contrast and low bandwidth.</div>
+
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
+                    <!-- Phone Wireframe 1 -->
+                    <div style="width: 200px; height: 320px; border: 4px solid var(--text-dark); border-radius: 20px; background: white; padding: 10px; box-shadow: var(--shadow-subtle);">
+                        <div style="text-align: center; font-size: 7pt; font-weight: bold; background: var(--bg-light); padding: 4px; border-radius: 4px; margin-bottom: 8px;">Available Corridor Loads</div>
+                        <div style="border: 1px solid var(--border-color); border-radius: 6px; padding: 6px; margin-bottom: 6px; font-size: 6.5pt;">
+                            <div style="font-weight: bold; color: var(--primary-blue);">Addis Ababa → Adama</div>
+                            <div style="color: var(--text-muted);">20 Tons Dry Cargo</div>
+                            <div style="font-weight: bold; color: var(--accent-green); margin-top: 4px;">Target: 16,000 ETB</div>
+                        </div>
+                        <div style="border: 1px solid var(--border-color); border-radius: 6px; padding: 6px; font-size: 6.5pt;">
+                            <div style="font-weight: bold; color: var(--primary-blue);">Addis Ababa → Hawassa</div>
+                            <div style="color: var(--text-muted);">15 Tons Construction Materials</div>
+                            <div style="font-weight: bold; color: var(--accent-green); margin-top: 4px;">Target: 22,000 ETB</div>
+                        </div>
+                    </div>
+
+                    <!-- Phone Wireframe 2 -->
+                    <div style="width: 200px; height: 320px; border: 4px solid var(--text-dark); border-radius: 20px; background: white; padding: 10px; box-shadow: var(--shadow-subtle);">
+                        <div style="text-align: center; font-size: 7pt; font-weight: bold; background: var(--accent-green); color: white; padding: 4px; border-radius: 4px; margin-bottom: 8px;">Delivery Handshake OTP</div>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <div style="font-size: 7pt; color: var(--text-muted);">Enter Recipient's 6-Digit Code</div>
+                            <div style="display: flex; justify-content: center; gap: 4px; margin: 12px 0;">
+                                <input type="text" value="8" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                                <input type="text" value="4" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                                <input type="text" value="1" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                                <input type="text" value="9" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                                <input type="text" value="0" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                                <input type="text" value="3" style="width: 20px; height: 25px; text-align: center; font-weight: bold;" readonly />
+                            </div>
+                            <button style="width: 100%; background: var(--accent-green); color: white; border: none; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 7pt;">Verify & Complete Delivery</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 19</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 20: UI MOCKUPS - ADMIN DASHBOARD ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">18. UI - Admin Dashboard</div>
+            </div>
+
+            <div>
+                <div class="section-title">18. User Interface: Administrator Portal</div>
+                <div class="section-subtitle">Centralized platform monitoring, KYC verification, and dispute control.</div>
+
+                <div class="grid-4" style="margin-bottom: 12px;">
+                    <div class="card" style="text-align: center; padding: 8px;">
+                        <div style="font-size: 6.5pt; color: var(--text-muted);">Active Users</div>
+                        <div style="font-size: 14pt; font-weight: bold; color: var(--primary-blue);">1,240</div>
+                    </div>
+                    <div class="card" style="text-align: center; padding: 8px;">
+                        <div style="font-size: 6.5pt; color: var(--text-muted);">In-Transit Loads</div>
+                        <div style="font-size: 14pt; font-weight: bold; color: var(--accent-green);">86</div>
+                    </div>
+                    <div class="card" style="text-align: center; padding: 8px;">
+                        <div style="font-size: 6.5pt; color: var(--text-muted);">Pending KYC</div>
+                        <div style="font-size: 14pt; font-weight: bold; color: #D97000;">14</div>
+                    </div>
+                    <div class="card" style="text-align: center; padding: 8px;">
+                        <div style="font-size: 6.5pt; color: var(--text-muted);">Escrow Balance</div>
+                        <div style="font-size: 11pt; font-weight: bold; color: var(--secondary-blue);">2.4M ETB</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="font-size: 8.5pt; margin-bottom: 6px; color: var(--text-dark);">Pending Driver KYC Approval Queue</h4>
+                    <table style="font-size: 7.5pt;">
+                        <thead>
+                            <tr>
+                                <th>Driver Name</th>
+                                <th>Phone Number</th>
+                                <th>License Grade</th>
+                                <th>Vehicle Plate</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tewodros Kassahun</td>
+                                <td>+251 91 122 3344</td>
+                                <td>Dry Cargo Grade-3</td>
+                                <td>ET-3-88210</td>
+                                <td><span class="badge badge-gold">Pending Review</span></td>
+                                <td><button style="background: var(--primary-blue); color: white; border: none; padding: 2px 6px; border-radius: 3px; font-size: 6.5pt;">Inspect Docs</button></td>
+                            </tr>
+                            <tr>
+                                <td>Yared Tadesse</td>
+                                <td>+251 92 555 6677</td>
+                                <td>Heavy Commercial</td>
+                                <td>ET-3-11290</td>
+                                <td><span class="badge badge-gold">Pending Review</span></td>
+                                <td><button style="background: var(--primary-blue); color: white; border: none; padding: 2px 6px; border-radius: 3px; font-size: 6.5pt;">Inspect Docs</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 20</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 21: TESTING & EVALUATION ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">19. Verification & Quality</div>
+            </div>
+
+            <div>
+                <div class="section-title">19. Testing Methodology & Evaluation</div>
+                <div class="section-subtitle">Multi-tier testing strategy ensuring system reliability and payment security.</div>
+
+                <div class="card" style="text-align: center; padding: 12px; margin-bottom: 12px;">
+                    <svg width="100%" height="110" viewBox="0 0 460 110" fill="none">
+                        <!-- Pyramid -->
+                        <polygon points="230,10 330,100 130,100" fill="#E3F2FD" stroke="#0052CC" stroke-width="1.5" />
+                        <line x1="163" y1="70" x2="297" y2="70" stroke="#0052CC" />
+                        <line x1="196" y1="40" x2="264" y2="40" stroke="#0052CC" />
+
+                        <text x="230" y="32" font-size="7" font-weight="bold" fill="#0052CC" text-anchor="middle">E2E Field Tests (10%)</text>
+                        <text x="230" y="58" font-size="7.5" font-weight="bold" fill="#0052CC" text-anchor="middle">Integration & API Tests (30%)</text>
+                        <text x="230" y="88" font-size="8" font-weight="bold" fill="#0052CC" text-anchor="middle">Unit & State Machine Tests (60%)</text>
+                    </svg>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--primary-blue);">Unit & State Machine Testing</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">Verified state machine transition rules (e.g., verifying that escrow release cannot occur without a valid Delivery OTP input).</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="font-size: 8.5pt; color: var(--accent-green);">Field Network Simulation</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">Simulated 2G/3G high-latency network conditions to ensure driver mobile application properly queues offline data syncs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 21</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 22: UNIQUE FEATURES ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">20. Market Differentiators</div>
+            </div>
+
+            <div>
+                <div class="section-title">20. Unique Value Proposition</div>
+                <div class="section-subtitle">Core competitive advantages tailored specifically to the Ethiopian freight ecosystem.</div>
+
+                <div class="grid-2" style="gap: 12px;">
+                    <div class="card" style="border-top: 3px solid var(--accent-green);">
+                        <h3 style="font-size: 9.5pt; color: var(--accent-green);">Corridor-Centric Optimization</h3>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Engineered specifically around Ethiopian trade arteries (Addis Ababa to Adama, Hawassa, Bahir Dar, Dire Dawa), utilizing custom corridor node mapping.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-top: 3px solid var(--primary-blue);">
+                        <h3 style="font-size: 9.5pt; color: var(--primary-blue);">Backhaul Algorithmic Match</h3>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Proactively pairs returning unladen trucks with regional cargo posts, dropping unladen miles by an estimated 35%.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-top: 3px solid var(--gold-accent);">
+                        <h3 style="font-size: 9.5pt; color: #D97000;">Dual Cryptographic OTP Handshake</h3>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Provides complete physical cargo accountability without requiring expensive hardware installations on low-margin fleets.
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-top: 3px solid var(--secondary-blue);">
+                        <h3 style="font-size: 9.5pt; color: var(--secondary-blue);">Local Payment Gateway Escrow</h3>
+                        <p style="font-size: 7.5pt; color: var(--text-muted); margin-top: 4px;">
+                            Directly integrates with Telebirr and local banking APIs to secure funds domestically without foreign currency requirements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 22</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 23: ROADMAP & FUTURE ================= -->
+        <div class="pdf-page">
+            <div class="page-header">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">21. Project Roadmap</div>
+            </div>
+
+            <div>
+                <div class="section-title">21. Future Expansion Roadmap</div>
+                <div class="section-subtitle">Multi-phase strategy for regional expansion and AI integration.</div>
+
+                <div class="card" style="padding: 15px;">
+                    <div style="border-left: 3px solid var(--primary-blue); padding-left: 10px; margin-bottom: 12px;">
+                        <span class="badge badge-blue">Phase 1 (Current)</span>
+                        <h4 style="font-size: 8.5pt; margin-top: 2px;">Domestic Corridor Platform</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Core web/mobile platform live on Addis Ababa regional corridors with mobile escrow and OTP verification.</p>
+                    </div>
+
+                    <div style="border-left: 3px solid var(--accent-green); padding-left: 10px; margin-bottom: 12px;">
+                        <span class="badge badge-green">Phase 2 (Q4 2026)</span>
+                        <h4 style="font-size: 8.5pt; margin-top: 2px;">Djibouti International Trade Corridor</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Cross-border freight processing, customs clearance documentation integration, and USD/ETB currency clearing.</p>
+                    </div>
+
+                    <div style="border-left: 3px solid var(--gold-accent); padding-left: 10px;">
+                        <span class="badge badge-gold">Phase 3 (2027)</span>
+                        <h4 style="font-size: 8.5pt; margin-top: 2px;">AI Predictive Rate Engine & Telematics</h4>
+                        <p style="font-size: 7.5pt; color: var(--text-muted);">Machine learning models predicting dynamic seasonal pricing + hardwired OBD-II telematics integration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 23</span>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 24: CONCLUSION ================= -->
+        <div class="pdf-page cover-page" style="text-align: center; justify-content: space-between;">
+            <div class="page-header" style="width: 100%;">
+                <div class="brand">HABESHA<span class="brand-accent">FREIGHT</span></div>
+                <div class="doc-title">22. Conclusion</div>
+            </div>
+
+            <div style="margin: auto 0;">
+                <div class="cover-logo-badge" style="margin-bottom: 15px;">
+                    <span style="font-weight: 700; color: var(--primary-blue); font-size: 11pt;">PROJECT CONCLUSION</span>
+                </div>
+
+                <h2 style="font-size: 22pt; color: var(--primary-blue); margin-bottom: 12px;">Transforming Logistics Across Ethiopia</h2>
+
+                <p style="font-size: 9.5pt; color: var(--text-dark); max-width: 85%; margin: 0 auto 20px auto; line-height: 1.6;">
+                    HabeshaFreight represents a complete, technically sound, and operational software solution designed to modernize the Ethiopian logistics landscape. By disintermediating informal brokers, enforcing escrow financial security, and providing cryptographic OTP verification, the platform directly addresses structural inefficiencies in domestic transport.
+                </p>
+
+                <div class="card" style="max-width: 80%; margin: 0 auto; background: var(--bg-white); border-color: var(--primary-blue);">
+                    <div style="font-weight: 800; font-size: 13pt; color: var(--primary-blue);">HABESHAFREIGHT</div>
+                    <div style="font-size: 10pt; color: var(--accent-green); font-weight: 600; margin-top: 4px;">
+                        Connecting Cargo. Connecting Drivers. Connecting Ethiopia.
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer" style="width: 100%;">
+                <span>HabeshaFreight System Requirements Specification</span>
+                <span class="page-number">Page 24</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('pdf-container');
+            const opt = {
+                margin:       0,
+                filename:     'HabeshaFreight_SRS_Documentation.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Temporarily hide export bar
+            document.getElementById('export-bar').style.display = 'none';
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.getElementById('export-bar').style.display = 'flex';
+            });
+        }
+    </script>
+</body>
+</html>

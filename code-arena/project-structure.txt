@@ -1,0 +1,144 @@
+.
+├── AGENTS.md
+├── backend
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── src
+│   │   ├── app.js
+│   │   ├── config
+│   │   │   └── db.js
+│   │   ├── controllers
+│   │   │   ├── adminController.js
+│   │   │   ├── auditLogController.js
+│   │   │   ├── authController.js
+│   │   │   ├── contestController.js
+│   │   │   ├── matchController.js
+│   │   │   ├── participantController.js
+│   │   │   └── tournamentController.js
+│   │   ├── middleware
+│   │   │   ├── auth.js
+│   │   │   └── authMiddleware.js
+│   │   ├── models
+│   │   │   ├── AuditLog.js
+│   │   │   ├── Contest.js
+│   │   │   ├── Match.js
+│   │   │   ├── Participant.js
+│   │   │   ├── Result.js
+│   │   │   ├── Tournament.js
+│   │   │   └── User.js
+│   │   ├── routes
+│   │   │   ├── adminRoutes.js
+│   │   │   ├── auditLogRoutes.js
+│   │   │   ├── authRoutes.js
+│   │   │   ├── contestRoutes.js
+│   │   │   ├── participantRoutes.js
+│   │   │   └── tournamentRoutes.js
+│   │   ├── server.js
+│   │   ├── services
+│   │   │   ├── adminApi.ts
+│   │   │   ├── advancementService.js
+│   │   │   ├── api.ts
+│   │   │   ├── auditLogService.js
+│   │   │   ├── authApi.ts
+│   │   │   ├── codeforcesService.js
+│   │   │   ├── contestApi.ts
+│   │   │   ├── contestService.js
+│   │   │   ├── tournamentApi.ts
+│   │   │   └── tournamentService.js
+│   │   └── utils
+│   └── test
+│       ├── authMiddleware.test.js
+│       ├── codeforcesService.test.js
+│       ├── contestService.test.js
+│       ├── mongo.lifecycle.test.js
+│       └── tournamentModel.test.js
+├── createParticipants.js
+├── frontend
+│   ├── code-arena.zip
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── public
+│   │   ├── favicon.svg
+│   │   └── icons.svg
+│   ├── README.md
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── assets
+│   │   │   ├── hero.png
+│   │   │   ├── react.svg
+│   │   │   └── vite.svg
+│   │   ├── components
+│   │   │   ├── admin.tsx
+│   │   │   ├── auth
+│   │   │   │   ├── AdminRoute.tsx
+│   │   │   │   └── ProtectedRoute.tsx
+│   │   │   ├── layout
+│   │   │   │   ├── AdminLayout.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   └── Navbar.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── ui
+│   │   │   │   ├── Badge.tsx
+│   │   │   │   ├── Button.tsx
+│   │   │   │   ├── Card.tsx
+│   │   │   │   ├── EmptyState.tsx
+│   │   │   │   ├── ErrorState.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   └── LoadingState.tsx
+│   │   │   └── ui.tsx
+│   │   ├── context
+│   │   │   ├── AuthContext.tsx
+│   │   │   └── hooks
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   ├── pages
+│   │   │   ├── admin
+│   │   │   │   ├── AdminBracket.tsx
+│   │   │   │   ├── AdminContests.tsx
+│   │   │   │   ├── AdminDashboard.tsx
+│   │   │   │   ├── AdminGroups.tsx
+│   │   │   │   ├── AdminLogs.tsx
+│   │   │   │   ├── AdminParticipants.tsx
+│   │   │   │   ├── AdminResults.tsx
+│   │   │   │   ├── CreateTournament.tsx
+│   │   │   │   └── EditTournament.tsx
+│   │   │   ├── Bracket.tsx
+│   │   │   ├── Champion.tsx
+│   │   │   ├── ContestDetails.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── Home.tsx
+│   │   │   ├── Leaderboard.tsx
+│   │   │   ├── Live.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── ParticipantProfile.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── Results.tsx
+│   │   │   └── TournamentDetails.tsx
+│   │   ├── services
+│   │   │   ├── adminApi.ts
+│   │   │   ├── api.ts
+│   │   │   ├── authApi.ts
+│   │   │   ├── contestApi.ts
+│   │   │   └── tournamentApi.ts
+│   │   ├── types
+│   │   │   ├── index.ts
+│   │   │   └── tournament.ts
+│   │   ├── types.ts
+│   │   └── utils
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   ├── vercel.json
+│   ├── vite.config.d.ts
+│   ├── vite.config.js
+│   └── vite.config.ts
+├── lovable.toml
+├── package.json
+├── package-lock.json
+├── project-structure.txt
+└── README.md
+
+25 directories, 116 files

@@ -1,0 +1,18 @@
+.input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        background-color: #374151;
+}
+.card {
+        background: #1f2933;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-weight: bold;
+        transition: 0.2s;
+}
+
+.card:hover {
+        background: #16a34a;
+}

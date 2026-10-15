@@ -1,0 +1,55 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.ts text diff=typescript
+*.js text diff=javascript
+*.json text diff=json
+*.yml text diff=yaml
+*.yaml text diff=yaml
+*.md text diff=markdown
+*.sh text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.tgz binary
+
+# Database files
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Lock files
+package-lock.json -diff
+yarn.lock -diff
+pnpm-lock.yaml -diff
+
+# Environment files
+.env.* linguist-vendored
+.env* linguist-vendored
+
+# Test files
+**/__tests__/** linguist-vendored
+*.test.ts linguist-vendored
+*.spec.ts linguist-vendored
+*.test.js linguist-vendored
+*.spec.js linguist-vendored
+
+# Coverage
+coverage/** linguist-vendored
+.nyc_output/** linguist-vendored
+
+# Generated files
+dist/** linguist-generated
+build/** linguist-generated
+lib/** linguist-generated
+*.d.ts linguist-generated

@@ -1,0 +1,96 @@
+# === TEST-SPECIFIC IGNORES ===
+
+# Test files and directories
+*.test.ts
+*.spec.ts
+*.test.js
+*.spec.js
+*.test.tsx
+*.spec.tsx
+**/__tests__/
+**/__mocks__/
+**/__fixtures__/
+**/__snapshots__/
+
+# Test helpers that are not needed in production
+tests/
+test/
+testing/
+src/__tests__/
+src/test/
+src/testing/
+
+# Test configuration files
+jest.config.*
+vitest.config.*
+test-setup.*
+global-setup.*
+setupTests.*
+testEnvironment.*
+
+# Test coverage reports
+coverage/
+.nyc_output/
+lcov-report/
+test-results/
+test-reports/
+junit.xml
+*.lcov
+
+# Test databases
+*.test.db
+*.test.sqlite
+test-db/
+test-db-data/
+*.test.sql
+
+# Test fixtures and mocks
+fixtures/
+mocks/
+stubs/
+fakes/
+dummies/
+
+# Test logs
+test-logs/
+test-results/
+
+# Test scripts
+scripts/test-*
+scripts/run-tests.*
+scripts/test-*.sh
+scripts/test-*.js
+
+# Test tools and utilities
+test-utils/
+testing-utils/
+test-helpers/
+test-factories/
+
+# Test environment files
+.env.test
+.env.test.*
+.env.testing
+.env.ci
+
+# Test seeds
+seeds/test/
+seeds/development/
+seeds/production/
+
+# Test migrations
+migrations/*_test_*
+migrations/test_*
+
+# C8 coverage config
+.c8rc.json
+.nycrc.json
+coverage.config.js
+coverage.config.ts
+
+# Test runner configs
+vitest.config.*
+jest.config.*
+mocha.opts
+ava.config.*
+tap.config.*

@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-900;
+    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  }
+
+  ::selection {
+    background: #ccfbf1;
+    color: #0f172a;
+  }
+}

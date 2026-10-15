@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+!.env*.example
+
+# Builds
+dist/
+build/
+.next/
+out/
+coverage/
+.turbo/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+# Mobile
+*.iml
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+**/ios/Pods/

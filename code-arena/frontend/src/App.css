@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+        --bg-primary: #06060A;
+        --bg-secondary: #0F101A;
+        --bg-card: rgba(255, 255, 255, 0.03);
+        --border-color: rgba(255, 255, 255, 0.06);
+        --text-primary: #FFFFFF;
+        --text-secondary: #9EAFCE;
+        --text-muted: #61718F;
+        --blue: #2979FF;
+        --blue-dark: #1565C0;
+        /* Secondary tech accent (steel cyan) — name kept for compatibility */
+        --purple: #38BDF8;
+        --gold: #FFD700;
+        --green: #22C55E;
+        --red: #EF4444;
+        --orange: #F59E0B;
+        --gradient-brand: linear-gradient(135deg, #2979FF, #1565C0);
+        --gradient-gold: linear-gradient(135deg, #FFD700, #EAB308);
+        --gradient-text: linear-gradient(135deg, #FFFFFF, #64B5F6);
+        --gradient-prestige: linear-gradient(135deg, #2979FF, #EAB308);
+}
+
+* {
+        box-sizing: border-box;
+}
+
+body {
+        background: var(--bg-primary);
+        color: #fff;
+        font-family: Inter, sans-serif;
+        -webkit-font-smoothing: antialiased;
+}
+
+a {
+        color: inherit;
+        text-decoration: none;
+}
+
+button,
+input,
+select {
+        font: inherit;
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+        border-color: rgba(41, 121, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+        height: 76px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 64px;
+        background: rgba(6, 6, 10, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        animation: fadeInDown 0.5s ease;
+}
+
+.brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font: 700 17px Outfit, sans-serif;
+        letter-spacing: 0.08em;
+}
+
+.brand em {
+        color: var(--blue);
+        font-style: normal;
+}
+
+.brand-mark {
+        color: var(--blue);
+        font-family: 'Space Mono', monospace;
+        letter-spacing: -0.2em;
+}
+
+.navbar nav {
+        display: flex;
+        gap: 30px;
+        color: var(--text-secondary);
+        font-size: 14px;
+}
+
+.navbar nav a {
+        position: relative;
+        transition: color 0.3s ease;
+}
+
+.navbar nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-brand);
+        transition: width 0.3s ease;
+}
+
+.navbar nav a:hover {
+        color: #fff;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+        width: 100%;
+}
+
+.navbar nav a.active {
+        color: #fff;
+}
+
+.nav-actions {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+}
+
+.user-label {
+        color: var(--text-secondary);
+        font-size: 13px;
+}
+
+.text-button {
+        border: 0;
+        background: transparent;
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+}
+
+.text-button:hover {
+        color: #fff;
+}
+
+.button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid var(--blue);
+        background: var(--blue);
+        color: #fff;
+        padding: 11px 17px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        transition: all 0.3s ease;
+}
+
+.button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(41, 121, 255, 0.3);
+}
+
+.button.secondary {
+        background: transparent;
+        border-color: var(--border-color);
+        color: var(--text-secondary);
+}
+
+.button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+}
+
+.live-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: var(--red);
+        border-radius: 50%;
+        margin-right: 6px;
+        box-shadow: 0 0 12px var(--red);
+        animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ===== BADGE ===== */
+.badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: max-content;
+        border-radius: 100px;
+        padding: 4px 14px;
+        font: 700 10px 'Space Mono', monospace;
+        letter-spacing: 0.05em;
+        border: 1px solid;
+        transition: all 0.3s ease;
+}
+
+.badge.blue {
+        color: #91bbff;
+        border-color: rgba(41, 121, 255, 0.3);
+        background: rgba(41, 121, 255, 0.12);
+}
+
+.badge.green {
+        color: var(--green);
+        border-color: rgba(34, 197, 94, 0.3);
+        background: rgba(34, 197, 94, 0.12);
+}
+
+.badge.red {
+        color: #ff93a6;
+        border-color: rgba(239, 68, 68, 0.3);
+        background: rgba(239, 68, 68, 0.12);
+}
+
+.badge.gold {
+        color: var(--gold);
+        border-color: rgba(255, 215, 0, 0.3);
+        background: rgba(255, 215, 0, 0.12);
+}
+
+.badge.purple {
+        color: #7DD3FC;
+        border-color: rgba(56, 189, 248, 0.3);
+        background: rgba(56, 189, 248, 0.12);
+}
+
+.badge.muted {
+        color: var(--text-muted);
+        border-color: rgba(97, 113, 143, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== CARD ===== */
+.card {
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+        border-color: rgba(41, 121, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== STATE ===== */
+.state {
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--text-secondary);
+        font-size: 14px;
+        border: 1px dashed var(--border-color);
+        background: rgba(15, 16, 26, 0.5);
+        border-radius: 12px;
+}
+
+.state.error {
+        color: #ff9aaa;
+}
+
+/* ===== SPIN ===== */
+.spin {
+        animation: spin 1s linear infinite;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes spin {
+        to {
+                transform: rotate(360deg);
+        }
+}
+
+@keyframes pulse {
+
+        0%,
+        100% {
+                opacity: 1;
+                transform: scale(1);
+        }
+
+        50% {
+                opacity: 0.3;
+                transform: scale(0.8);
+        }
+}
+
+@keyframes fadeIn {
+        from {
+                opacity: 0;
+        }
+
+        to {
+                opacity: 1;
+        }
+}
+
+@keyframes fadeInDown {
+        from {
+                opacity: 0;
+                transform: translateY(-20px);
+        }
+
+        to {
+                opacity: 1;
+                transform: translateY(0);
+        }
+}
+
+@keyframes shimmer {
+        0% {
+                background-position: -200% 0;
+        }
+
+        100% {
+                background-position: 200% 0;
+        }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 800px) {
+        .navbar {
+                padding: 0 20px;
+        }
+
+        .navbar nav {
+                display: none;
+        }
+}

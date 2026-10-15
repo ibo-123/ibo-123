@@ -1,0 +1,29 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if sms_stats %}
+<div class="module" style="margin-bottom: 1.5em;">
+  <table>
+    <caption>
+      <a href="{% url 'admin:authentication_smsmessage_changelist' %}" class="section">
+        SMS delivery statistics
+      </a>
+    </caption>
+    <tr>
+      <th scope="row">Total SMS</th>
+      <td>{{ sms_stats.total }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Sent SMS</th>
+      <td>{{ sms_stats.sent }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Failed SMS</th>
+      <td>{{ sms_stats.failed }}</td>
+    </tr>
+  </table>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock %}

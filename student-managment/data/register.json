@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "name": "ibrahim",
+    "password": "$2b$10$NN7T3B1XQGAST3gIOZ5isuT/02K9vdOv6e8IGLdQoaSUH9nQtWgdi"
+  },
+  {
+    "id": 4,
+    "name": "ibno",
+    "password": "$2b$10$4PqzNTwE/NUpfAUkQ6p//uw/h57eCP1GTmYCqFlrQelUCp03.1Cmy",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaWJubyIsImlhdCI6MTc2MjE5OTkxNCwiZXhwIjoxNzYyMjg2MzE0fQ.XJTOBgj10cHQllMftwzggFk8zv9-iV0RvbC85J6eh-c"
+  },
+  {
+    "id": 2,
+    "name": "ibrahim2",
+    "password": "$2b$10$dKbJzMCHiEPn3SOwjMkUy.E9luYWFzIdtcCsQgUWpVkctPXJyUJlu",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaWJyYWhpbTIiLCJpYXQiOjE3NjIzNzU4NjgsImV4cCI6MTc2MjQ2MjI2OH0.1dR38MyTlF7LFNa2LLbdS4EqjSLpXrneYjQ0SEA5qbA"
+  },
+  {
+    "id": 3,
+    "name": "hidaya3",
+    "password": "$2b$10$YlBMna/ELMAoeEnivBZKbO2.sH3SdpQnKbXg1RaxT/sisQA9Ne02K",
+    "refreshToken": ""
+  }
+]

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Notes API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, textarea {
+            width: 300px;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre;
+            font-family: monospace;
+            background: #f4f4f4;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Notes API Tester</h2>
+
+<h3>Create Note</h3>
+<input id="title" placeholder="Title"><br>
+<textarea id="description" placeholder="Description"></textarea><br>
+<button onclick="createNote()">Create</button>
+
+<h3>Update Note</h3>
+<input id="uTitle" placeholder="Existing Title"><br>
+<textarea id="uDescription" placeholder="New Description"></textarea><br>
+<button onclick="updateNote()">Update</button>
+
+<h3>Delete Note</h3>
+<input id="dTitle" placeholder="Title to Delete"><br>
+<button onclick="deleteNote()">Delete</button>
+
+<h3>Get All Notes</h3>
+<button onclick="getAll()">Get Notes</button>
+
+<div id="output"></div>
+
+<script>
+    const BASE_URL = "http://localhost:8000/notes";
+
+    function print(res) {
+        document.getElementById("output").innerText = JSON.stringify(res, null, 2);
+    }
+
+    async function createNote() {
+        const res = await fetch(BASE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value
+            })
+        });
+        print(await res.json());
+    }
+
+    async function updateNote() {
+        const res = await fetch(BASE_URL, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: document.getElementById("uTitle").value,
+                description: document.getElementById("uDescription").value
+            })
+        });
+        print(await res.json());
+    }
+
+    async function deleteNote() {
+        const res = await fetch(BASE_URL, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: document.getElementById("dTitle").value
+            })
+        });
+        print(await res.json());
+    }
+
+    async function getAll() {
+        const res = await fetch(BASE_URL);
+        print(await res.json());
+    }
+</script>
+
+</body>
+</html>
