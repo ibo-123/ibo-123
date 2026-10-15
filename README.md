@@ -1,181 +1,120 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:1e3a8a,100:7c3aed&height=220&section=header&text=Ibrahim%20Kedir&fontSize=64&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=Full-Stack%20Developer%20%E2%80%A2%20Competitive%20Programmer%20%E2%80%A2%20Mobile%20Builder&descAlignY=58&descSize=18" width="100%" alt="Ibrahim Kedir banner" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1220,50:0f766e,100:14b8a6&height=240&section=header&text=Ibrahim%20Kedir&fontSize=58&fontColor=f8fafc&animation=fadeIn&fontAlignY=35&desc=Full-Stack%20Builder%20%E2%80%A2%20Club%20Platforms%20%E2%80%A2%20Competitive%20Programming&descAlignY=58&descSize=16" width="100%" alt="Ibrahim Kedir banner" />
 
 <a href="https://github.com/ibo-123">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=800&color=7C3AED&center=true&vCenter=true&width=640&lines=Full-Stack+Developer+(MERN+%2B+Next.js);TypeScript+%E2%80%A2+React+%E2%80%A2+Node.js+%E2%80%A2+MongoDB;Competitive+Programmer+in+C%2B%2B+%26+Python;Flutter+%26+Dart+for+mobile;Building+platforms+that+real+communities+use" alt="Typing animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&duration=3200&pause=900&color=5EEAD4&center=true&vCenter=true&width=700&lines=Shipping+full-stack+products+end-to-end;React+%2B+Next.js+%2B+Express+%2B+MongoDB;Real-time+apps+with+Socket.IO;Flutter+mobile+%26+C%2B%2B+%2F+Python+CP;Built+for+student+clubs+%26+real+users" alt="Typing animation" />
 </a>
-
-<br/>
-
-<img src="https://komarev.com/ghpvc/?username=ibo-123&style=for-the-badge&color=7c3aed&label=PROFILE+VIEWS" alt="Profile views" />
-<img src="https://img.shields.io/badge/Open%20to%20Work-Yes-22c55e?style=for-the-badge&logo=handshake&logoColor=white" alt="Open to work" />
-<img src="https://img.shields.io/github/followers/ibo-123?style=for-the-badge&color=1e3a8a&logo=github&label=FOLLOWERS" alt="Followers" />
-
-</div>
-
-<br/>
-
-## 👋 About Me
-
-I'm **Ibrahim**, a full-stack developer who likes shipping complete products: an API with real auth and roles, a clean React or Next.js frontend, and a live deployment people can actually open. Most of what I build serves student communities and tech clubs — attendance systems, contest platforms, contributor workflows — so I care a lot about role-based access, data integrity, and dashboards that make sense to non-developers.
-
-- 🚀 Currently building **[TemariHub Contributor](https://temarihub-contributer.vercel.app)** — a 7-phase contributor workflow (auth → jobs → templates → review → export → notifications)
-- 🏆 Built **[Code Arena 2026](https://code-arena-weld.vercel.app)**, a tournament platform with live **Codeforces API** sync, group stages and playoff brackets
-- 📍 Active in university tech clubs (**NCC**, **CSEC**) and national challenges (**INSA**)
-- 🧠 Sharpening algorithms daily — C++ and Python solutions in [`contest-problems`](https://github.com/ibo-123/contest-problems) and [`CSEC-CPD`](https://github.com/ibo-123/CSEC-CPD)
-- 📱 Exploring cross-platform mobile with **Flutter**
-- 💬 Ask me about **Express + MongoDB architecture, JWT & RBAC, React 19, real-time apps with Socket.IO**
-
-<br/>
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-### Languages
-<img src="https://skillicons.dev/icons?i=ts,js,cpp,c,python,dart,html,css&perline=8" alt="Languages" />
-
-### Frontend
-<img src="https://skillicons.dev/icons?i=react,nextjs,vite,tailwind,figma&perline=8" alt="Frontend" />
-
-### Backend & Database
-<img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,postman&perline=8" alt="Backend" />
-
-### Mobile, DevOps & Tools
-<img src="https://skillicons.dev/icons?i=flutter,docker,linux,git,github,vercel,vscode&perline=8" alt="Tools" />
-
-</div>
-
-<details>
-<summary><b>📦 What I actually reach for in a project</b></summary>
-<br/>
-
-| Layer | Tools I use |
-|:--|:--|
-| **UI** | React 19, Next.js, TypeScript, Vite, React Router, Tailwind CSS, Leaflet maps |
-| **API** | Node.js, Express 5, JWT auth, bcrypt, role-based access control, express-validator |
-| **Security** | helmet, CORS, rate limiting, mongo-sanitize, xss-clean, cookie-parser |
-| **Data** | MongoDB, Mongoose, node-cache, multer uploads |
-| **Real-time** | Socket.IO (live GPS tracking, live standings) |
-| **Testing** | Jest, Supertest, mongodb-memory-server |
-| **Email** | Nodemailer, Resend |
-| **Mobile** | Flutter, Dart |
-| **Algorithms** | C++ (STL), Python |
-| **Deploy** | Vercel, Docker, GitHub |
-
-</details>
-
-<br/>
-
-## 🚀 Featured Projects
-
-<div align="center">
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/code-arena">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=code-arena&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="Code Arena" />
-      </a>
-      <p align="left">
-        <b>🏆 Code Arena 2026</b><br/>
-        Competitive-programming tournament platform with round-robin groups, playoff brackets, admin dashboard, audit logs and live <b>Codeforces API</b> sync.<br/>
-        <code>React 19</code> <code>TypeScript</code> <code>Express</code> <code>MongoDB</code> <code>Jest</code><br/>
-        🔗 <a href="https://code-arena-weld.vercel.app">Live demo</a>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/temarihub-contributer">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=temarihub-contributer&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="TemariHub Contributor" />
-      </a>
-      <p align="left">
-        <b>📚 TemariHub Contributor</b><br/>
-        Contributor-management workflow for an exam-content platform: admin/contributor roles, jobs, submission templates, review &amp; revision history, JSON export and notifications.<br/>
-        <code>React</code> <code>TypeScript</code> <code>Tailwind</code> <code>Express</code> <code>JWT</code><br/>
-        🔗 <a href="https://temarihub-contributer.vercel.app">Live demo</a>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/Driver-tracking-app">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=Driver-tracking-app&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="Driver Tracking App" />
-      </a>
-      <p align="left">
-        <b>🚚 Driver Tracking App</b><br/>
-        Real-time GPS tracking over WebSockets — drivers start/stop trips, customers follow a live Leaflet map with distance and ETA using a trip ID.<br/>
-        <code>React</code> <code>Socket.IO</code> <code>Leaflet</code> <code>Express 5</code> <code>MongoDB</code><br/>
-        🔗 <a href="https://driver-tracking-app.vercel.app">Live demo</a>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/NCC_MSJ-MEMBERS-WEB">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=NCC_MSJ-MEMBERS-WEB&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="NCC MSJ Members Web" />
-      </a>
-      <p align="left">
-        <b>🎓 NCC_MSJ Club Platform</b><br/>
-        Full-stack club management: members, event attendance with duplicate prevention, achievements, courses and an admin panel with role enforcement.<br/>
-        <code>Next.js</code> <code>TypeScript</code> <code>Express</code> <code>MongoDB</code> <code>bcrypt</code><br/>
-        🔗 <a href="https://ncc-msj-members-web.vercel.app">Live demo</a>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/Code-Track">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=Code-Track&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="Code Track" />
-      </a>
-      <p align="left">
-        <b>📈 Code-Track</b><br/>
-        Progress tracker for coding practice with email notifications.<br/>
-        <code>JavaScript</code> <code>Node.js</code> <code>Nodemailer</code> <code>Resend</code><br/>
-        🔗 <a href="https://code-track-nine.vercel.app">Live demo</a>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://github.com/ibo-123/fake-store-flutter-app">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=fake-store-flutter-app&theme=tokyonight&hide_border=true&bg_color=0d1117" alt="Fake Store Flutter App" />
-      </a>
-      <p align="left">
-        <b>🛍️ Fake Store — Flutter</b><br/>
-        Cross-platform e-commerce client consuming a REST products API, with product listings, detail pages and cart flow.<br/>
-        <code>Flutter</code> <code>Dart</code> <code>REST API</code>
-      </p>
-    </td>
-  </tr>
-</table>
-
-</div>
-
-<details>
-<summary><b>🧩 More repos worth a look</b></summary>
-<br/>
-
-| Repo | What it is | Stack |
-|:--|:--|:--|
-| [INSA-Challenges](https://github.com/ibo-123/INSA-Challenges) | Solutions and builds for the INSA national challenge series · [live](https://insa-challenges.vercel.app) | C++, Dart, JS |
-| [Backend](https://github.com/ibo-123/Backend) | Production-style Express boilerplate: helmet, rate limiting, sanitization, JWT, uploads | Node.js, Express, MongoDB |
-| [NCC_WEB](https://github.com/ibo-123/NCC_WEB) | Club website frontend | TypeScript, React |
-| [CSEC-CPD](https://github.com/ibo-123/CSEC-CPD) | Competitive-programming division problem sets | Python, C++ |
-| [contest-problems](https://github.com/ibo-123/contest-problems) | Daily algorithm practice | Python |
-| [Quiz-exam](https://github.com/ibo-123/Quiz-exam) | Timed quiz / exam web app | JavaScript, HTML, CSS |
-| [Student-Management](https://github.com/ibo-123/Student-Management) | CRUD student records app | JavaScript |
-
-</details>
-
-<br/>
-
-## 📊 GitHub Stats
-
-<div align="center">
-
-<img height="180" src="https://github-readme-stats.vercel.app/api?username=ibo-123&show_icons=true&include_all_commits=true&count_private=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=7c3aed&icon_color=60a5fa" alt="GitHub stats" />
-<img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ibo-123&layout=compact&langs_count=8&hide=html,css,cmake,shell,perl,objective-c&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=7c3aed" alt="Top languages" />
 
 <br/><br/>
 
-<img src="https://streak-stats.demolab.com?user=ibo-123&theme=tokyonight&hide_border=true&background=0d1117&ring=7c3aed&fire=7c3aed&currStreakLabel=7c3aed" alt="GitHub streak" />
+<img src="https://komarev.com/ghpvc/?username=ibo-123&style=flat-square&color=0f766e&label=PROFILE+VIEWS" alt="Profile views" />
+&nbsp;
+<img src="https://img.shields.io/badge/Open%20to%20Work-Yes-14b8a6?style=flat-square&labelColor=0b1220" alt="Open to work" />
+&nbsp;
+<img src="https://img.shields.io/github/followers/ibo-123?style=flat-square&color=0ea5e9&labelColor=0b1220&label=followers" alt="Followers" />
+
+</div>
+
+---
+
+### About
+
+I build complete products — auth, roles, APIs, dashboards, and live demos people can open. Most of my work serves **student communities and tech clubs**: tournament platforms, attendance systems, contributor workflows, and freight/tracking tools.
+
+| Focus | What I ship |
+|:--|:--|
+| **Platforms** | Contests, club members, contributor jobs, freight marketplaces |
+| **Stack** | React / Next.js · Express · MongoDB / Postgres · Socket.IO · Flutter |
+| **Craft** | JWT + RBAC, clean APIs, dashboards non-devs can use |
+
+**Right now**
+- Building **[TemariHub Contributor](https://temarihub-contributer.vercel.app)** — 7-phase workflow (auth → jobs → templates → review → export → notifications)
+- Shipping **[Code Arena 2026](https://code-arena-weld.vercel.app)** — groups, playoffs, live **Codeforces** sync
+- Active in **NCC**, **CSEC**, and **INSA** challenges
+
+---
+
+### Tech
+
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=ts,js,cpp,python,dart,html,css&perline=7" alt="Languages" />
+<br/>
+<img src="https://skillicons.dev/icons?i=react,nextjs,vite,tailwind,nodejs,express,mongodb&perline=7" alt="Web" />
+<br/>
+<img src="https://skillicons.dev/icons?i=flutter,postgres,docker,linux,git,github,vercel&perline=7" alt="Mobile & tools" />
+
+</div>
+
+<details>
+<summary><b>Tools I reach for</b></summary>
+<br/>
+
+| Layer | Stack |
+|:--|:--|
+| UI | React 19, Next.js, TypeScript, Vite, Tailwind, Leaflet |
+| API | Node.js, Express, JWT, bcrypt, express-validator, RBAC |
+| Data | MongoDB / Mongoose, PostgreSQL / PostGIS, Knex |
+| Realtime | Socket.IO |
+| Mobile | Flutter, Dart |
+| Quality | Jest, Supertest, Docker, Vercel |
+
+</details>
+
+---
+
+### Featured from my projects folder
+
+<div align="center">
+
+| | |
+|:--|:--|
+| <a href="https://github.com/ibo-123/code-arena"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=code-arena&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="Code Arena" /></a><br/><b>Code Arena 2026</b><br/>Tournament platform · groups · brackets · Codeforces sync<br/><code>React</code> <code>TS</code> <code>Express</code> <code>MongoDB</code><br/>[Live](https://code-arena-weld.vercel.app) | <a href="https://github.com/ibo-123/temarihub-contributer"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=temarihub-contributer&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="TemariHub Contributor" /></a><br/><b>TemariHub Contributor</b><br/>Jobs · templates · review · JSON export · notifications<br/><code>React</code> <code>Tailwind</code> <code>Express</code> <code>JWT</code><br/>[Live](https://temarihub-contributer.vercel.app) |
+| <a href="https://github.com/ibo-123/Driver-tracking-app"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=Driver-tracking-app&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="Driver Tracking" /></a><br/><b>Driver Tracking</b><br/>Live GPS · trip IDs · Leaflet map · ETA<br/><code>React</code> <code>Socket.IO</code> <code>Express</code> <code>MongoDB</code><br/>[Live](https://driver-tracking-app.vercel.app) | <a href="https://github.com/ibo-123/NCC_MSJ-MEMBERS-WEB"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=NCC_MSJ-MEMBERS-WEB&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="NCC MSJ" /></a><br/><b>NCC_MSJ Club Platform</b><br/>Members · attendance · courses · admin RBAC<br/><code>Next.js</code> <code>Express</code> <code>MongoDB</code><br/>[Live](https://ncc-msj-members-web.vercel.app) |
+| <a href="https://github.com/ibo-123/Code-Track"><img src="https://github-readme-stats.vercel.app/api/pin/?username=ibo-123&repo=Code-Track&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="Code Track" /></a><br/><b>Code-Track</b><br/>CP progress · Codeforces · email OTP · charts<br/><code>JS</code> <code>Node</code> <code>Nodemailer</code> <code>Resend</code><br/>[Live](https://code-track-nine.vercel.app) | <img width="100%" height="0" alt="" /><br/><b>Habesha Freight</b><br/>Ethiopia freight marketplace · shippers ↔ drivers<br/><code>TypeScript</code> <code>Express</code> <code>Postgres</code> <code>PostGIS</code><br/>OTP + JWT · RBAC · admin ops |
+
+</div>
+
+---
+
+### Full local portfolio map
+
+Synced from my projects workspace — what lives on disk and what it does:
+
+| Project | Role | Stack |
+|:--|:--|:--|
+| **code-arena** | CP tournament platform | React 19, TS, Express, MongoDB, Jest |
+| **temari-hub-contributor** | Exam content contributor workflow | React, Tailwind, Express, JWT |
+| **TemariHub** | Exam platform monorepo | backend · web · mobile |
+| **driver-tracking-app** / **Driver Track** | Real-time freight GPS tracking | React, Socket.IO, Express, MongoDB |
+| **Habesha_Freight** | Digital freight marketplace | TS, Express, PostgreSQL, PostGIS |
+| **NCC_MSJ** | University club management | Next.js, Express, MongoDB |
+| **ncc_dsa_web** / **NCC_DSA_Attendance** | DSA club web + attendance | client/server apps |
+| **NCC_WEB** / **NCC_Web_Task_1** | Club site & bootcamp tasks | React / HTML-CSS |
+| **Code-Track** | Coding progress tracker | JS, Node, email APIs |
+| **Local Skill And Freelancer** | Local freelance marketplace | React, Tailwind, Express, MongoDB |
+| **Hulu_Bedeje** | Flutter / INSA challenge app | Flutter, Dart |
+| **student-managment** | Student CRUD API | Express 5, MongoDB, JWT |
+| **Note Book** | Notes API + UI | Express, Mongoose, JWT |
+| **Quiz Project** | Timed quiz / exam pages | HTML, CSS, JS |
+| **chess game** | Browser chess UI | React, Vite |
+| **calculator App** | Calculator UI | HTML |
+| **Basic Informational Site** | Simple Express site | Express, static pages |
+| **protofoil** | Personal portfolio pages | HTML, CSS, JS |
+
+---
+
+### Stats
+
+<div align="center">
+
+<img height="168" src="https://github-readme-stats.vercel.app/api?username=ibo-123&show_icons=true&include_all_commits=true&count_private=true&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&icon_color=14b8a6&text_color=cbd5e1" alt="GitHub stats" />
+<img height="168" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ibo-123&layout=compact&langs_count=8&hide=html,css,cmake,shell,perl,objective-c&theme=transparent&hide_border=true&bg_color=0b1220&title_color=5eead4&text_color=cbd5e1" alt="Top languages" />
+
+<br/><br/>
+
+<img src="https://streak-stats.demolab.com?user=ibo-123&theme=dark&hide_border=true&background=0b1220&ring=14b8a6&fire=2dd4bf&currStreakLabel=5eead4&sideLabels=94a3b8&dates=64748b" alt="GitHub streak" />
 
 <br/><br/>
 
@@ -183,23 +122,20 @@ I'm **Ibrahim**, a full-stack developer who likes shipping complete products: an
 
 </div>
 
-<br/>
+---
 
-## 🤝 Let's Connect
+### Connect
 
 <div align="center">
 
-<a href="https://github.com/ibo-123"><img src="https://img.shields.io/badge/GitHub-ibo--123-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
-<a href="https://www.linkedin.com/in/YOUR-LINKEDIN"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="mailto:YOUR-EMAIL@example.com"><img src="https://img.shields.io/badge/Email-Say%20hi-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-<a href="https://codeforces.com/profile/YOUR-HANDLE"><img src="https://img.shields.io/badge/Codeforces-Profile-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces" /></a>
-<a href="https://ibo-123.github.io"><img src="https://img.shields.io/badge/Portfolio-ibo--123.github.io-7c3aed?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio" /></a>
+<a href="https://github.com/ibo-123"><img src="https://img.shields.io/badge/GitHub-ibo--123-0b1220?style=for-the-badge&logo=github&logoColor=5eead4" alt="GitHub" /></a>
+<a href="https://codeforces.com/profile/ibo-123"><img src="https://img.shields.io/badge/Codeforces-Profile-0b1220?style=for-the-badge&logo=codeforces&logoColor=0ea5e9" alt="Codeforces" /></a>
+<a href="https://ibo-123.github.io"><img src="https://img.shields.io/badge/Portfolio-Site-0b1220?style=for-the-badge&logo=googlechrome&logoColor=14b8a6" alt="Portfolio" /></a>
 
 <br/><br/>
 
-> *"Ship it, measure it, then make it better."*
+> *Ship it. Measure it. Make it better.*
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7c3aed,50:1e3a8a,100:0f172a&height=120&section=footer" width="100%" alt="Footer wave" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:14b8a6,50:0f766e,100:0b1220&height=100&section=footer" width="100%" alt="Footer wave" />
 
 </div>
-
