@@ -1,6 +1,14 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1220,50:0f766e,100:14b8a6&height=220&section=header&text=Ibrahim%20Kedir&fontSize=54&fontColor=f8fafc&animation=fadeIn&fontAlignY=38&desc=Full-Stack%20Engineer%20%E2%80%A2%20Product%20Builder%20%E2%80%A2%20Competitive%20Programmer&descAlignY=62&descSize=15" width="100%" alt="Ibrahim Kedir banner" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0b1220,50:0f766e,100:14b8a6&height=140&section=header&text=&fontSize=1" width="100%" alt="" />
+
+<a href="https://github.com/ibo-123">
+  <img src="./ibo.png" width="170" height="170" alt="Ibrahim Kedir profile photo" />
+</a>
+
+# Ibrahim Kedir
+
+**Full-Stack Engineer · Product Builder · Competitive Programmer**
 
 <a href="https://github.com/ibo-123">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=3400&pause=1000&color=5EEAD4&center=true&vCenter=true&width=720&lines=I+build+end-to-end+products+people+can+use;React+%2B+Next.js+%2B+Express+%2B+MongoDB+%2F+Postgres;Realtime+systems+with+Socket.IO;Flutter+mobile+%26+competitive+programming;Open+to+internships+%26+full-stack+roles" alt="Typing animation" />
